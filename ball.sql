@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 14/01/2021 18:23:09
+ Date: 14/01/2021 18:42:25
 */
 
 SET NAMES utf8mb4;
@@ -62,7 +62,7 @@ CREATE TABLE `admin_operation_log`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `admin_operation_log_user_id_index`(`user_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 50 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_operation_log
@@ -116,6 +116,11 @@ INSERT INTO `admin_operation_log` VALUES (46, 1, 'admin/user-bets/create', 'GET'
 INSERT INTO `admin_operation_log` VALUES (47, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-14 10:07:03', '2021-01-14 10:07:03');
 INSERT INTO `admin_operation_log` VALUES (48, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-14 10:08:27', '2021-01-14 10:08:27');
 INSERT INTO `admin_operation_log` VALUES (49, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-14 10:09:24', '2021-01-14 10:09:24');
+INSERT INTO `admin_operation_log` VALUES (50, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-14 10:30:06', '2021-01-14 10:30:06');
+INSERT INTO `admin_operation_log` VALUES (51, 1, 'admin/user-bets', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-14 10:30:08', '2021-01-14 10:30:08');
+INSERT INTO `admin_operation_log` VALUES (52, 1, 'admin/user-bets/1', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-14 10:30:13', '2021-01-14 10:30:13');
+INSERT INTO `admin_operation_log` VALUES (53, 1, 'admin/user-bets/1', 'GET', '127.0.0.1', '[]', '2021-01-14 10:30:29', '2021-01-14 10:30:29');
+INSERT INTO `admin_operation_log` VALUES (54, 1, 'admin/user-bets/1', 'GET', '127.0.0.1', '[]', '2021-01-14 10:30:48', '2021-01-14 10:30:48');
 
 -- ----------------------------
 -- Table structure for admin_permissions
@@ -390,12 +395,115 @@ CREATE TABLE `user_bet`  (
   `created_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `updated_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_bet
 -- ----------------------------
 INSERT INTO `user_bet` VALUES (1, 123, '123', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.00, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for user_bet_odds
+-- ----------------------------
+DROP TABLE IF EXISTS `user_bet_odds`;
+CREATE TABLE `user_bet_odds`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `sum_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '总和大',
+  `sum_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '总和小',
+  `sum_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '总和奇',
+  `sum_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '总和偶',
+  `dragon` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '龙',
+  `tiger` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '虎',
+  `draw` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '和',
+  `first_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球大',
+  `first_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球小',
+  `first_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球奇',
+  `first_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球偶',
+  `first_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球0',
+  `first_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球1',
+  `first_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球2',
+  `first_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球3',
+  `first_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球4',
+  `first_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球5',
+  `first_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球6',
+  `first_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球7',
+  `first_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球8',
+  `first_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球9',
+  `second_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球大',
+  `second_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球小',
+  `second_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球奇',
+  `second_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球偶',
+  `second_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球0',
+  `second_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球1',
+  `second_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球2',
+  `second_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球3',
+  `second_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球4',
+  `second_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球5',
+  `second_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球6',
+  `second_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球7',
+  `second_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球8',
+  `second_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球9',
+  `third_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球大',
+  `third_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球小',
+  `third_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球奇',
+  `third_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球偶',
+  `third_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球0',
+  `third_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球1',
+  `third_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球2',
+  `third_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球3',
+  `third_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球4',
+  `third_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球5',
+  `third_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球6',
+  `third_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球7',
+  `third_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球8',
+  `third_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球9',
+  `fourth_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球大',
+  `fourth_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球小',
+  `fourth_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球奇',
+  `fourth_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球偶',
+  `fourth_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球0',
+  `fourth_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球1',
+  `fourth_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球2',
+  `fourth_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球3',
+  `fourth_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球4',
+  `fourth_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球5',
+  `fourth_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球6',
+  `fourth_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球7',
+  `fourth_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球8',
+  `fourth_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球9',
+  `fifth_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球大',
+  `fifth_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球小',
+  `fifth_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球奇',
+  `fifth_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球偶',
+  `fifth_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球0',
+  `fifth_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球1',
+  `fifth_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球2',
+  `fifth_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球3',
+  `fifth_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球4',
+  `fifth_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球5',
+  `fifth_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球6',
+  `fifth_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球7',
+  `fifth_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球8',
+  `fifth_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球9',
+  `before_three_leopard` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三豹子',
+  `before_three_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三顺子',
+  `before_three_two_pairs` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三对子',
+  `before_three_half_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三半顺',
+  `before_three_discrete` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三杂六',
+  `middle_three_leopard` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三豹子',
+  `middle_three_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三顺子',
+  `middle_three_two_pairs` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三对子',
+  `middle_three_half_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三半顺',
+  `middle_three_discrete` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三杂六',
+  `after_three_leopard` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三豹子',
+  `after_three_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三顺子',
+  `after_three_two_pairs` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三对子',
+  `after_three_half_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三半顺',
+  `after_three_discrete` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三杂六',
+  `created_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `updated_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for users
