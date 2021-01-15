@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,5 +15,13 @@
  @foreach ($data as $item)
      <p>已选：{{$item['name']}} 金额： {{ $item['bet_price'] }} 赔率：{{$item['bet_odds']}}</p>
  @endforeach
+<p>下注时间：{{$createTime}}</p>
+<p>打印时间：{{\Carbon\Carbon::now()->toDateTimeString()}}</p>
+扫描二维码查看结果：
+<br>
+<br>
+{!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(150)->generate(env('APP_URL'). "/result/" . $orderNumber); !!}
+
 </body>
 </html>
+

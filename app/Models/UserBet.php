@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,5 +40,8 @@ class UserBet extends Model
         "after_three_leopard" => "后三豹子", "after_three_straight" => "后三顺子", "after_three_two_pairs" => "后三对子",
         "after_three_half_straight" => "后三半顺", "after_three_discrete" => "后三杂六",
     ];
-
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 }

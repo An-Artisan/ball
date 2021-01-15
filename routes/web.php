@@ -28,6 +28,7 @@ Route::get('/bet/{number}', function ($number) {
     $result = array_diff($result, [0]);
     $phaseNumber = $result['phase_number'];
     $orderNumber = $result['order_number'];
+    $createTime = $result['created_at'];
     unset($result['id']);
     unset($result['created_at']);
     unset($result['updated_at']);
@@ -38,9 +39,9 @@ Route::get('/bet/{number}', function ($number) {
     $data = [];
     $sumPrice = 0;
     foreach ($result as $key => $value) {
-        $data[] = ["bet_price" => $value,"bet_odds" => $odds[$key],"name" => UserBet::NAMES[$key]];
+        $data[] = ["bet_price" => $value, "bet_odds" => $odds[$key], "name" => UserBet::NAMES[$key]];
         $sumPrice += $value;
     }
 
-    return view('bet',["data" => $data,"phaseNumber" => $phaseNumber,"orderNumber" => $orderNumber,"sumPrice" => $sumPrice]);
+    return view('bet', ["data" => $data, "phaseNumber" => $phaseNumber, "orderNumber" => $orderNumber, "sumPrice" => $sumPrice, "createTime" => $createTime]);
 });
