@@ -12,7 +12,12 @@ class UserBet extends Model
 
     protected $table = 'user_bet';
     protected $primaryKey = 'id';
-    protected $dateFormat = 'U';
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->timestamps = true;
+    }
 
     const NAMES = [
         "sum_max" => "总和大", "sum_min" => "总和小", "sum_odd" => "总和奇", "sum_even" => "总和偶", "dragon" => "龙", "tiger" => "虎", "draw" => "和",

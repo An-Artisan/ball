@@ -17,5 +17,9 @@
  * Admin::js('/packages/prettydocs/js/main.js');
  *
  */
+use App\Admin\Extensions\Form\OpenCountdown;
 
 Encore\Admin\Form::forget(['map', 'editor']);
+use Encore\Admin\Form;
+
+Form::extend('open_countdown', OpenCountdown::class);

@@ -291,7 +291,14 @@ class BetController extends AdminController
     protected function form()
     {
         $form = new Form(new UserBet());
+        $form->column(1 / 2, function ($form) {
 
+            $form->open_countdown(1);
+        });
+        $form->column(1 / 2, function ($form) {
+
+            $form->open_countdown(1);
+        });
 
 //        $form->number('phase_number', "");
 //        $form->text('order_number', __('Order number'));
