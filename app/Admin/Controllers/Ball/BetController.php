@@ -25,6 +25,7 @@ class BetController extends AdminController
      */
     protected function grid()
     {
+        $_SESSION['test'] = "Test";
         $grid = new Grid(new UserBet());
 
         $grid->column('id', "ID");
