@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers\Ball;
 
+use App\Admin\Actions\Bet\PrintBet;
 use App\Models\UserBet;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -134,7 +135,11 @@ class BetController extends AdminController
         $grid->column('win_or_lose',"该注盈亏");
         $grid->column('created_at', "创建时间");
         $grid->column('updated_at', "更新时间");
+
+
         $grid->actions(function ($actions) {
+
+            $actions->add(new PrintBet);
 
             // 去掉删除
             $actions->disableDelete();
@@ -145,8 +150,11 @@ class BetController extends AdminController
             // 去掉查看
             $actions->disableView();
         });
+
         return $grid;
     }
+
+
 
     /**
      * Make a show builder.

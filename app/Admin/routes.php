@@ -15,6 +15,7 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('home');
     $router->resource('user-bets', 'Ball\BetController');
+    $router->resource('user-bet-odds', 'Ball\BetOddsController');
 
 });
 
