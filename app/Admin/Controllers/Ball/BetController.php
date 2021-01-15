@@ -29,110 +29,122 @@ class BetController extends AdminController
         $grid->column('id', "ID");
         $grid->column('phase_number', "下注期数");
         $grid->column('order_number', "下注编号");
-        $grid->column('sum_max', "总和大");
-        $grid->column('sum_min', "总和小");
-        $grid->column('sum_odd', "总和奇");
-        $grid->column('sum_even', "总和偶");
-        $grid->column('dragon', "龙");
-        $grid->column('tiger', "虎");
-        $grid->column('draw', "和");
-        $grid->column('first_max', "一球大");
-        $grid->column('first_min', "一球小");
-        $grid->column('first_odd', "一球单");
-        $grid->column('first_even', "一球双");
-        $grid->column('first_0', "一球0");
-        $grid->column('first_1', "一球1");
-        $grid->column('first_2', "一球2");
-        $grid->column('first_3', "一球3");
-        $grid->column('first_4', "一球4");
-        $grid->column('first_5', "一球5");
-        $grid->column('first_6', "一球6");
-        $grid->column('first_7', "一球7");
-        $grid->column('first_8', "一球8");
-        $grid->column('first_9', "一球9");
-
-        $grid->column('second_max', "二球大");
-        $grid->column('second_min', "二球小");
-        $grid->column('second_odd', "二球单");
-        $grid->column('second_even', "二球双");
-        $grid->column('second_0', "二球0");
-        $grid->column('second_1', "二球1");
-        $grid->column('second_2', "二球2");
-        $grid->column('second_3', "二球3");
-        $grid->column('second_4', "二球4");
-        $grid->column('second_5', "二球5");
-        $grid->column('second_6', "二球6");
-        $grid->column('second_7', "二球7");
-        $grid->column('second_8', "二球8");
-        $grid->column('second_9', "二球9");
-
-        $grid->column('third_max', "三球大");
-        $grid->column('third_min', "三球小");
-        $grid->column('third_odd', "三球单");
-        $grid->column('third_even', "三球双");
-        $grid->column('third_0', "三球0");
-        $grid->column('third_1', "三球1");
-        $grid->column('third_2', "三球2");
-        $grid->column('third_3', "三球3");
-        $grid->column('third_4', "三球4");
-        $grid->column('third_5', "三球5");
-        $grid->column('third_6', "三球6");
-        $grid->column('third_7', "三球7");
-        $grid->column('third_8', "三球8");
-        $grid->column('third_9', "三球9");
-
-        $grid->column('fourth_max', "四球大");
-        $grid->column('fourth_min', "四球小");
-        $grid->column('fourth_odd', "四球单");
-        $grid->column('fourth_even', "四球双");
-        $grid->column('fourth_0', "四球0");
-        $grid->column('fourth_1', "四球1");
-        $grid->column('fourth_2', "四球2");
-        $grid->column('fourth_3', "四球3");
-        $grid->column('fourth_4', "四球4");
-        $grid->column('fourth_5', "四球5");
-        $grid->column('fourth_6', "四球6");
-        $grid->column('fourth_7', "四球7");
-        $grid->column('fourth_8', "四球8");
-        $grid->column('fourth_9', "四球9");
-
-        $grid->column('fifth_max', "五球大");
-        $grid->column('fifth_min', "五球小");
-        $grid->column('fifth_odd', "五球单");
-        $grid->column('fifth_even', "五球双");
-        $grid->column('fifth_0', "五球0");
-        $grid->column('fifth_1', "五球1");
-        $grid->column('fifth_2', "五球2");
-        $grid->column('fifth_3', "五球3");
-        $grid->column('fifth_4', "五球4");
-        $grid->column('fifth_5', "五球5");
-        $grid->column('fifth_6', "五球6");
-        $grid->column('fifth_7', "五球7");
-        $grid->column('fifth_8', "五球8");
-        $grid->column('fifth_9', "五球9");
-
-        $grid->column('before_three_leopard', "前三豹子");
-        $grid->column('before_three_straight', "前三顺子");
-        $grid->column('before_three_two_pairs', "前三对子");
-        $grid->column('before_three_half_straight', "前三半顺");
-        $grid->column('before_three_discrete', "前三杂六");
-
-        $grid->column('middle_three_leopard', "中三豹子");
-        $grid->column('middle_three_straight', "中三顺子");
-        $grid->column('middle_three_two_pairs', "中三对子");
-        $grid->column('middle_three_half_straight', "中三半顺");
-        $grid->column('middle_three_discrete', "中三杂六");
-
-
-        $grid->column('after_three_leopard', "后三豹子");
-        $grid->column('after_three_straight', "后三顺子");
-        $grid->column('after_three_two_pairs', "后三对子");
-        $grid->column('after_three_half_straight', "后三半顺");
-        $grid->column('after_three_discrete', "后三杂六");
-
+//        $grid->column('sum_max', "总和大");
+//        $grid->column('sum_min', "总和小");
+//        $grid->column('sum_odd', "总和奇");
+//        $grid->column('sum_even', "总和偶");
+//        $grid->column('dragon', "龙");
+//        $grid->column('tiger', "虎");
+//        $grid->column('draw', "和");
+//        $grid->column('first_max', "一球大");
+//        $grid->column('first_min', "一球小");
+//        $grid->column('first_odd', "一球单");
+//        $grid->column('first_even', "一球双");
+//        $grid->column('first_0', "一球0");
+//        $grid->column('first_1', "一球1");
+//        $grid->column('first_2', "一球2");
+//        $grid->column('first_3', "一球3");
+//        $grid->column('first_4', "一球4");
+//        $grid->column('first_5', "一球5");
+//        $grid->column('first_6', "一球6");
+//        $grid->column('first_7', "一球7");
+//        $grid->column('first_8', "一球8");
+//        $grid->column('first_9', "一球9");
+//
+//        $grid->column('second_max', "二球大");
+//        $grid->column('second_min', "二球小");
+//        $grid->column('second_odd', "二球单");
+//        $grid->column('second_even', "二球双");
+//        $grid->column('second_0', "二球0");
+//        $grid->column('second_1', "二球1");
+//        $grid->column('second_2', "二球2");
+//        $grid->column('second_3', "二球3");
+//        $grid->column('second_4', "二球4");
+//        $grid->column('second_5', "二球5");
+//        $grid->column('second_6', "二球6");
+//        $grid->column('second_7', "二球7");
+//        $grid->column('second_8', "二球8");
+//        $grid->column('second_9', "二球9");
+//
+//        $grid->column('third_max', "三球大");
+//        $grid->column('third_min', "三球小");
+//        $grid->column('third_odd', "三球单");
+//        $grid->column('third_even', "三球双");
+//        $grid->column('third_0', "三球0");
+//        $grid->column('third_1', "三球1");
+//        $grid->column('third_2', "三球2");
+//        $grid->column('third_3', "三球3");
+//        $grid->column('third_4', "三球4");
+//        $grid->column('third_5', "三球5");
+//        $grid->column('third_6', "三球6");
+//        $grid->column('third_7', "三球7");
+//        $grid->column('third_8', "三球8");
+//        $grid->column('third_9', "三球9");
+//
+//        $grid->column('fourth_max', "四球大");
+//        $grid->column('fourth_min', "四球小");
+//        $grid->column('fourth_odd', "四球单");
+//        $grid->column('fourth_even', "四球双");
+//        $grid->column('fourth_0', "四球0");
+//        $grid->column('fourth_1', "四球1");
+//        $grid->column('fourth_2', "四球2");
+//        $grid->column('fourth_3', "四球3");
+//        $grid->column('fourth_4', "四球4");
+//        $grid->column('fourth_5', "四球5");
+//        $grid->column('fourth_6', "四球6");
+//        $grid->column('fourth_7', "四球7");
+//        $grid->column('fourth_8', "四球8");
+//        $grid->column('fourth_9', "四球9");
+//
+//        $grid->column('fifth_max', "五球大");
+//        $grid->column('fifth_min', "五球小");
+//        $grid->column('fifth_odd', "五球单");
+//        $grid->column('fifth_even', "五球双");
+//        $grid->column('fifth_0', "五球0");
+//        $grid->column('fifth_1', "五球1");
+//        $grid->column('fifth_2', "五球2");
+//        $grid->column('fifth_3', "五球3");
+//        $grid->column('fifth_4', "五球4");
+//        $grid->column('fifth_5', "五球5");
+//        $grid->column('fifth_6', "五球6");
+//        $grid->column('fifth_7', "五球7");
+//        $grid->column('fifth_8', "五球8");
+//        $grid->column('fifth_9', "五球9");
+//
+//        $grid->column('before_three_leopard', "前三豹子");
+//        $grid->column('before_three_straight', "前三顺子");
+//        $grid->column('before_three_two_pairs', "前三对子");
+//        $grid->column('before_three_half_straight', "前三半顺");
+//        $grid->column('before_three_discrete', "前三杂六");
+//
+//        $grid->column('middle_three_leopard', "中三豹子");
+//        $grid->column('middle_three_straight', "中三顺子");
+//        $grid->column('middle_three_two_pairs', "中三对子");
+//        $grid->column('middle_three_half_straight', "中三半顺");
+//        $grid->column('middle_three_discrete', "中三杂六");
+//
+//
+//        $grid->column('after_three_leopard', "后三豹子");
+//        $grid->column('after_three_straight', "后三顺子");
+//        $grid->column('after_three_two_pairs', "后三对子");
+//        $grid->column('after_three_half_straight', "后三半顺");
+//        $grid->column('after_three_discrete', "后三杂六");
+        $grid->column('is_open_lottery',"是否开奖")->using([0 => '未开奖', 1 => '已经开奖']);
+        $grid->column('bet_sum',"下注总额");
+        $grid->column('win_or_lose',"该注盈亏");
         $grid->column('created_at', "创建时间");
         $grid->column('updated_at', "更新时间");
+        $grid->actions(function ($actions) {
 
+            // 去掉删除
+            $actions->disableDelete();
+
+            // 去掉编辑
+//            $actions->disableEdit();
+
+            // 去掉查看
+            $actions->disableView();
+        });
         return $grid;
     }
 
@@ -145,7 +157,10 @@ class BetController extends AdminController
     protected function detail($id)
     {
         $show = new Show(UserBet::findOrFail($id));
-
+//        $show->field(1 / 4, function ($form) {
+//            $form->number('sum_max', "总和大")->default(0)->required()->setWidth(0, 3)->min(0);
+//            $form->divider();
+//        });
         $show->field('id', "ID")->setWidth(1);
         $show->field('phase_number', "下注期数")->setWidth(1);
         $show->field('order_number', "下注编号")->setWidth(1);
@@ -250,11 +265,12 @@ class BetController extends AdminController
         $show->field('after_three_discrete', "后三杂六")->setWidth(1);
         $show->field('after_three_discrete', "后三杂六")->setWidth(1);
         $show->field('bet_sum', "下注总额")->setWidth(1);
-        $show->field('is_open_lottery', "是否开奖")->setWidth(1)->using([0 => "否", 1=>"是"]);
+        $show->field('is_open_lottery', "是否开奖")->setWidth(1)->using([0 => "否", 1 => "是"]);
 
         $show->field('win_or_lose', "当注盈亏")->setWidth(1);
         $show->field('created_at', "创建时间")->setWidth(1);
         $show->field('updated_at', "更新时间")->setWidth(1);
+
 
         return $show;
     }
@@ -268,121 +284,212 @@ class BetController extends AdminController
     {
         $form = new Form(new UserBet());
 
+
 //        $form->number('phase_number', "");
 //        $form->text('order_number', __('Order number'));
 
-        $form->fieldset('总和', function (Form $form) {
-            $form->number('sum_max', "总和大")->default(0)->required();
-            $form->number('sum_min', "总和小")->default(0)->required();
-            $form->number('sum_odd', "总和单")->default(0)->required();
-            $form->number('sum_even', "总和双")->default(0)->required();
+        $form->column(1 / 4, function ($form) {
+            $form->number('sum_max', "总和大")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+        });
+        $form->column(1 / 4, function ($form) {
+            $form->number('sum_min', "总和小")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+        });
+        $form->column(1 / 4, function ($form) {
+            $form->number('sum_odd', "总和单")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+
+        });
+        $form->column(1 / 4, function ($form) {
+            $form->number('sum_even', "总和双")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+        });
+//
+
+
+
+        $form->column(1 / 3, function ($form) {
+            $form->number('dragon', "龙")->default(0)->required()->setWidth(0, 2)->min(0);
+            $form->divider();
         });
 
-        $form->column(1/3, function ($form) {
-            $form->number('sum_max', "总和大")->default(0)->required();
-            $form->number('sum_min', "总和小")->default(0)->required();
-            $form->number('sum_odd', "总和单")->default(0)->required();
-            $form->number('sum_even', "总和双")->default(0)->required();
-            $form->number('dragon', "龙")->default(0)->required();
-            $form->number('tiger', "虎")->default(0)->required();
-            $form->number('draw', "和")->default(0)->required();
-        });
-        $form->column(1/2, function ($form) {
+        $form->column(1 / 3, function ($form) {
+            $form->number('tiger', "虎")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
 
-            $form->number('first_max', "一球大")->default(0)->required();
-            $form->number('first_min', "一球小")->default(0)->required();
-            $form->number('first_odd', "一球单")->default(0)->required();
-            $form->number('first_even', "一球双")->default(0)->required();
-            $form->number('first_0', "一球0")->default(0)->required();
-            $form->number('first_1', "一球1")->default(0)->required();
-            $form->number('first_2', "一球2")->default(0)->required();
-            $form->number('first_3', "一球3")->default(0)->required();
-            $form->number('first_4', "一球4")->default(0)->required();
-            $form->number('first_5', "一球5")->default(0)->required();
-            $form->number('first_6', "一球6")->default(0)->required();
-            $form->number('first_7', "一球7")->default(0)->required();
-            $form->number('first_8', "一球8")->default(0)->required();
-            $form->number('first_9', "一球9")->default(0)->required();
+        });
+        $form->column(1 / 3, function ($form) {
+            $form->number('draw', "和")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+
         });
 
-        $form->number('second_max', "二球大")->default(0)->required();
-        $form->number('second_min', "二球小")->default(0)->required();
-        $form->number('second_odd', "二球单")->default(0)->required();
-        $form->number('second_even', "二球双")->default(0)->required();
-        $form->number('second_0', "二球0")->default(0)->required();
-        $form->number('second_1', "二球1")->default(0)->required();
-        $form->number('second_2', "二球2")->default(0)->required();
-        $form->number('second_3', "二球3")->default(0)->required();
-        $form->number('second_4', "二球4")->default(0)->required();
-        $form->number('second_5', "二球5")->default(0)->required();
-        $form->number('second_6', "二球6")->default(0)->required();
-        $form->number('second_7', "二球7")->default(0)->required();
-        $form->number('second_8', "二球8")->default(0)->required();
-        $form->number('second_9', "二球9")->default(0)->required();
 
-        $form->number('third_max', "三球大")->default(0)->required();
-        $form->number('third_min', "三球小")->default(0)->required();
-        $form->number('third_odd', "三球单")->default(0)->required();
-        $form->number('third_even', "三球双")->default(0)->required();
-        $form->number('third_0', "三球0")->default(0)->required();
-        $form->number('third_1', "三球1")->default(0)->required();
-        $form->number('third_2', "三球2")->default(0)->required();
-        $form->number('third_3', "三球3")->default(0)->required();
-        $form->number('third_4', "三球4")->default(0)->required();
-        $form->number('third_5', "三球5")->default(0)->required();
-        $form->number('third_6', "三球6")->default(0)->required();
-        $form->number('third_7', "三球7")->default(0)->required();
-        $form->number('third_8', "三球8")->default(0)->required();
-        $form->number('third_9', "三球9")->default(0)->required();
+        $form->column(1 / 3, function ($form) {
+            $form->number('before_three_leopard', "前三豹子")->default(0)->required()->setWidth(0, 2)->min(0);
+            $form->divider();
+            $form->number('before_three_straight', "前三顺子")->default(0)->required()->setWidth(0, 2)->min(0);
+            $form->divider();
+            $form->number('before_three_two_pairs', "前三对子")->default(0)->required()->setWidth(0, 2)->min(0);
+            $form->divider();
+            $form->number('before_three_half_straight', "前三半顺")->default(0)->required()->setWidth(0, 2)->min(0);
+            $form->divider();
+            $form->number('before_three_discrete', "前三杂六")->default(0)->required()->setWidth(0, 2)->min(0);
+            $form->divider();
+        });
 
-        $form->number('fourth_max', "四球大")->default(0)->required();
-        $form->number('fourth_min', "四球小")->default(0)->required();
-        $form->number('fourth_odd', "四球单")->default(0)->required();
-        $form->number('fourth_even', "四球双")->default(0)->required();
-        $form->number('fourth_0', "四球0")->default(0)->required();
-        $form->number('fourth_1', "四球1")->default(0)->required();
-        $form->number('fourth_2', "四球2")->default(0)->required();
-        $form->number('fourth_3', "四球3")->default(0)->required();
-        $form->number('fourth_4', "四球4")->default(0)->required();
-        $form->number('fourth_5', "四球5")->default(0)->required();
-        $form->number('fourth_6', "四球6")->default(0)->required();
-        $form->number('fourth_7', "四球7")->default(0)->required();
-        $form->number('fourth_8', "四球8")->default(0)->required();
-        $form->number('fourth_9', "四球9")->default(0)->required();
+        $form->column(1 / 3, function ($form) {
+            $form->number('middle_three_leopard', "中三豹子")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+            $form->number('middle_three_straight', "中三顺子")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+            $form->number('middle_three_two_pairs', "中三对子")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+            $form->number('middle_three_half_straight', "中三半顺")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+            $form->number('middle_three_discrete', "中三杂六")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+        });
 
-        $form->number('fifth_max', "五球大")->default(0)->required();
-        $form->number('fifth_min', "五球小")->default(0)->required();
-        $form->number('fifth_odd', "五球单")->default(0)->required();
-        $form->number('fifth_even', "五球双")->default(0)->required();
-        $form->number('fifth_0', "五球0")->default(0)->required();
-        $form->number('fifth_1', "五球1")->default(0)->required();
-        $form->number('fifth_2', "五球2")->default(0)->required();
-        $form->number('fifth_3', "五球3")->default(0)->required();
-        $form->number('fifth_4', "五球4")->default(0)->required();
-        $form->number('fifth_5', "五球5")->default(0)->required();
-        $form->number('fifth_6', "五球6")->default(0)->required();
-        $form->number('fifth_7', "五球7")->default(0)->required();
-        $form->number('fifth_8', "五球8")->default(0)->required();
-        $form->number('fifth_9', "五球9")->default(0)->required();
+        $form->column(1 / 3, function ($form) {
+            $form->number('after_three_leopard', "后三豹子")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+            $form->number('after_three_straight', "后三顺子")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+            $form->number('after_three_two_pairs', "后三对子")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+            $form->number('after_three_half_straight', "后三半顺")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+            $form->number('after_three_discrete', "后三杂六")->default(0)->required()->setWidth(0, 3)->min(0);
+            $form->divider();
+        });
 
 
-        $form->number('before_three_leopard', "前三豹子")->default(0)->required();
-        $form->number('before_three_straight', "前三顺子")->default(0)->required();
-        $form->number('before_three_two_pairs', "前三对子")->default(0)->required();
-        $form->number('before_three_half_straight', "前三半顺")->default(0)->required();
-        $form->number('before_three_discrete',"前三杂六")->default(0)->required();
 
-        $form->number('middle_three_leopard', "中三豹子")->default(0)->required();
-        $form->number('middle_three_straight', "中三顺子")->default(0)->required();
-        $form->number('middle_three_two_pairs', "中三对子")->default(0)->required();
-        $form->number('middle_three_half_straight', "中三半顺")->default(0)->required();
-        $form->number('middle_three_discrete',"中三杂六")->default(0)->required();
+        $form->column(1 / 6, function ($form) {
 
-        $form->number('after_three_leopard', "后三豹子")->default(0)->required();
-        $form->number('after_three_straight', "后三顺子")->default(0)->required();
-        $form->number('after_three_two_pairs', "后三对子")->default(0)->required();
-        $form->number('after_three_half_straight', "后三半顺")->default(0)->required();
-        $form->number('after_three_discrete',"后三杂六")->default(0)->required();
+            $form->number('first_max', "一球大")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_min', "一球小")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_odd', "一球单")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_even', "一球双")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_0', "一球0")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_1', "一球1")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_2', "一球2")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_3', "一球3")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_4', "一球4")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_5', "一球5")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_6', "一球6")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_6', "一球6")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_8', "一球8")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('first_9', "一球9")->default(0)->required()->setWidth(0, 4)->min(0);
+        });
+        $form->column(1 / 6, function ($form) {
+
+            $form->number('second_max', "二球大")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_min', "二球小")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_odd', "二球单")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_even', "二球双")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_0', "二球0")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_1', "二球1")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_2', "二球2")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_3', "二球3")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_4', "二球4")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_5', "二球5")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_6', "二球6")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_6', "二球6")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_8', "二球8")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('second_9', "二球9")->default(0)->required()->setWidth(0, 4)->min(0);
+        });
+        $form->column(1 / 6, function ($form) {
+            $form->number('third_max', "三球大")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_min', "三球小")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_odd', "三球单")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_even', "三球双")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_0', "三球0")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_1', "三球1")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_2', "三球2")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_3', "三球3")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_4', "三球4")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_5', "三球5")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_6', "三球6")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_6', "三球6")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_8', "三球8")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('third_9', "三球9")->default(0)->required()->setWidth(0, 4)->min(0);
+        });
+////
+        $form->column(1 / 6, function ($form) {
+
+            $form->number('fourth_max', "四球大")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_min', "四球小")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_odd', "四球单")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_even', "四球双")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_0', "四球0")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_1', "四球1")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_2', "四球2")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_3', "四球3")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_4', "四球4")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_5', "四球5")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_6', "四球6")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_6', "四球6")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_8', "四球8")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fourth_9', "四球9")->default(0)->required()->setWidth(0, 4)->min(0);
+        });
+//
+
+        $form->column(1 / 6, function ($form) {
+            $form->number('fifth_max', "五球大")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_min', "五球小")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_odd', "五球单")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_even', "五球双")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_0', "五球0")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_1', "五球1")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_2', "五球2")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_3', "五球3")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_4', "五球4")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_5', "五球5")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_6', "五球6")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_6', "五球6")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_8', "五球8")->default(0)->required()->setWidth(0, 4)->min(0);
+            $form->number('fifth_9', "五球9")->default(0)->required()->setWidth(0, 4)->min(0);
+
+        });
+
+
+//        $form->number()->n
+        $form->footer(function ($footer) {
+
+            // 去掉`查看`checkbox
+            $footer->disableViewCheck();
+
+            // 去掉`继续编辑`checkbox
+            $footer->disableEditingCheck();
+            // 去掉`继续创建`checkbox
+            $footer->disableCreatingCheck();
+
+        });
+        if ($form->isEditing()) {
+
+            $form->tools(function (Form\Tools $tools) {
+
+
+
+                // 去掉`删除`按钮
+                $tools->disableDelete();
+
+                // 去掉`查看`按钮
+                $tools->disableView();
+
+            });
+            $form->footer(function ($footer) {
+                // 去掉`重置`按钮
+                $footer->disableReset();
+
+                // 去掉`提交`按钮
+                $footer->disableSubmit();
+
+            });
+        }
 
         return $form;
     }
