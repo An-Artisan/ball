@@ -17,9 +17,12 @@
  * Admin::js('/packages/prettydocs/js/main.js');
  *
  */
-use App\Admin\Extensions\Form\OpenCountdown;
+
+use App\Admin\Extensions\Form\BetEndCountdown;
+use App\Admin\Extensions\Form\BetSealingCountdown;
 
 Encore\Admin\Form::forget(['map', 'editor']);
 use Encore\Admin\Form;
 
-Form::extend('open_countdown', OpenCountdown::class);
+Form::extend('bet_end_countdown', BetEndCountdown::class);
+Form::extend('bet_sealing_countdown', BetSealingCountdown::class);

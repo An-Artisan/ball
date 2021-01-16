@@ -14,8 +14,19 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('home');
+
+    /**
+     * 下注管理
+     */
     $router->resource('user-bets', 'Ball\BetController');
+    /**
+     * 赔率管理
+     */
     $router->resource('user-bet-odds', 'Ball\BetOddsController');
+    /**
+     * 开奖管理
+     */
+    $router->resource('open-balls', 'Ball\OpenBallController');
 
 });
 

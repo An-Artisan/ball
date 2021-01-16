@@ -3,11 +3,13 @@
 namespace App\Admin\Controllers\Ball;
 
 use App\Admin\Actions\Bet\PrintBet;
+use App\Models\OpenBall;
 use App\Models\UserBet;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Support\MessageBag;
 
 class BetController extends AdminController
 {
@@ -31,109 +33,9 @@ class BetController extends AdminController
         $grid->column('id', "ID");
         $grid->column('phase_number', "下注期数");
         $grid->column('order_number', "下注编号");
-//        $grid->column('sum_max', "总和大");
-//        $grid->column('sum_min', "总和小");
-//        $grid->column('sum_odd', "总和奇");
-//        $grid->column('sum_even', "总和偶");
-//        $grid->column('dragon', "龙");
-//        $grid->column('tiger', "虎");
-//        $grid->column('draw', "和");
-//        $grid->column('first_max', "一球大");
-//        $grid->column('first_min', "一球小");
-//        $grid->column('first_odd', "一球单");
-//        $grid->column('first_even', "一球双");
-//        $grid->column('first_0', "一球0");
-//        $grid->column('first_1', "一球1");
-//        $grid->column('first_2', "一球2");
-//        $grid->column('first_3', "一球3");
-//        $grid->column('first_4', "一球4");
-//        $grid->column('first_5', "一球5");
-//        $grid->column('first_6', "一球6");
-//        $grid->column('first_7', "一球7");
-//        $grid->column('first_8', "一球8");
-//        $grid->column('first_9', "一球9");
-//
-//        $grid->column('second_max', "二球大");
-//        $grid->column('second_min', "二球小");
-//        $grid->column('second_odd', "二球单");
-//        $grid->column('second_even', "二球双");
-//        $grid->column('second_0', "二球0");
-//        $grid->column('second_1', "二球1");
-//        $grid->column('second_2', "二球2");
-//        $grid->column('second_3', "二球3");
-//        $grid->column('second_4', "二球4");
-//        $grid->column('second_5', "二球5");
-//        $grid->column('second_6', "二球6");
-//        $grid->column('second_7', "二球7");
-//        $grid->column('second_8', "二球8");
-//        $grid->column('second_9', "二球9");
-//
-//        $grid->column('third_max', "三球大");
-//        $grid->column('third_min', "三球小");
-//        $grid->column('third_odd', "三球单");
-//        $grid->column('third_even', "三球双");
-//        $grid->column('third_0', "三球0");
-//        $grid->column('third_1', "三球1");
-//        $grid->column('third_2', "三球2");
-//        $grid->column('third_3', "三球3");
-//        $grid->column('third_4', "三球4");
-//        $grid->column('third_5', "三球5");
-//        $grid->column('third_6', "三球6");
-//        $grid->column('third_7', "三球7");
-//        $grid->column('third_8', "三球8");
-//        $grid->column('third_9', "三球9");
-//
-//        $grid->column('fourth_max', "四球大");
-//        $grid->column('fourth_min', "四球小");
-//        $grid->column('fourth_odd', "四球单");
-//        $grid->column('fourth_even', "四球双");
-//        $grid->column('fourth_0', "四球0");
-//        $grid->column('fourth_1', "四球1");
-//        $grid->column('fourth_2', "四球2");
-//        $grid->column('fourth_3', "四球3");
-//        $grid->column('fourth_4', "四球4");
-//        $grid->column('fourth_5', "四球5");
-//        $grid->column('fourth_6', "四球6");
-//        $grid->column('fourth_7', "四球7");
-//        $grid->column('fourth_8', "四球8");
-//        $grid->column('fourth_9', "四球9");
-//
-//        $grid->column('fifth_max', "五球大");
-//        $grid->column('fifth_min', "五球小");
-//        $grid->column('fifth_odd', "五球单");
-//        $grid->column('fifth_even', "五球双");
-//        $grid->column('fifth_0', "五球0");
-//        $grid->column('fifth_1', "五球1");
-//        $grid->column('fifth_2', "五球2");
-//        $grid->column('fifth_3', "五球3");
-//        $grid->column('fifth_4', "五球4");
-//        $grid->column('fifth_5', "五球5");
-//        $grid->column('fifth_6', "五球6");
-//        $grid->column('fifth_7', "五球7");
-//        $grid->column('fifth_8', "五球8");
-//        $grid->column('fifth_9', "五球9");
-//
-//        $grid->column('before_three_leopard', "前三豹子");
-//        $grid->column('before_three_straight', "前三顺子");
-//        $grid->column('before_three_two_pairs', "前三对子");
-//        $grid->column('before_three_half_straight', "前三半顺");
-//        $grid->column('before_three_discrete', "前三杂六");
-//
-//        $grid->column('middle_three_leopard', "中三豹子");
-//        $grid->column('middle_three_straight', "中三顺子");
-//        $grid->column('middle_three_two_pairs', "中三对子");
-//        $grid->column('middle_three_half_straight', "中三半顺");
-//        $grid->column('middle_three_discrete', "中三杂六");
-//
-//
-//        $grid->column('after_three_leopard', "后三豹子");
-//        $grid->column('after_three_straight', "后三顺子");
-//        $grid->column('after_three_two_pairs', "后三对子");
-//        $grid->column('after_three_half_straight', "后三半顺");
-//        $grid->column('after_three_discrete', "后三杂六");
-        $grid->column('is_open_lottery',"是否开奖")->using([0 => '未开奖', 1 => '已经开奖']);
-        $grid->column('bet_sum',"下注总额");
-        $grid->column('win_or_lose',"该注盈亏");
+        $grid->column('is_open_lottery', "是否开奖")->using([0 => '未开奖', 1 => '已经开奖']);
+        $grid->column('bet_sum', "下注总额");
+        $grid->column('win_or_lose', "该注盈亏");
         $grid->column('created_at', "创建时间");
         $grid->column('updated_at', "更新时间");
 
@@ -154,7 +56,6 @@ class BetController extends AdminController
 
         return $grid;
     }
-
 
 
     /**
@@ -292,17 +193,70 @@ class BetController extends AdminController
     protected function form()
     {
         $form = new Form(new UserBet());
-        $form->column(1 / 2, function ($form) {
+        $form->hidden('order_number');
+        $form->hidden('bet_sum');
+        $bet = OpenBall::query()->where('status', "!=", 2)->get()->first();
 
-            $form->open_countdown(1);
+//保存前回调
+        $form->saving(function (Form $form) use ($bet) {
+            $betArray = [
+                $form->sum_max, $form->sum_min, $form->sum_odd, $form->sum_even, $form->dragon, $form->tiger, $form->draw,
+                $form->first_max, $form->first_min, $form->first_odd, $form->first_even, $form->first_0, $form->first_1, $form->first_2,
+                $form->first_3, $form->first_4, $form->first_5, $form->first_6, $form->first_7, $form->first_8, $form->first_9,
+                $form->second_max, $form->second_min, $form->second_odd, $form->second_even, $form->second_0, $form->second_1, $form->second_2,
+                $form->second_3, $form->second_4, $form->second_5, $form->second_6, $form->second_7, $form->second_8, $form->second_9,
+                $form->third_max, $form->third_min, $form->third_odd, $form->third_even, $form->third_0, $form->third_1, $form->third_2,
+                $form->third_3, $form->third_4, $form->third_5, $form->third_6, $form->third_7, $form->third_8, $form->third_9,
+                $form->fourth_max, $form->fourth_min, $form->fourth_odd, $form->fourth_even, $form->fourth_0, $form->fourth_1, $form->fourth_2,
+                $form->fourth_3, $form->fourth_4, $form->fourth_5, $form->fourth_6, $form->fourth_7, $form->fourth_8, $form->fourth_9,
+                $form->fifth_max, $form->fifth_min, $form->fifth_odd, $form->fifth_even, $form->fifth_0, $form->fifth_1, $form->fifth_2,
+                $form->fifth_3, $form->fifth_4, $form->fifth_5, $form->fifth_6, $form->fifth_7, $form->fifth_8, $form->fifth_9,
+            ];
+            foreach ($betArray as $item) {
+                if ($item < 0) {
+                    $error = new MessageBag([
+                        'title' => '下注失败',
+                        'message' => '下注金额必须大于0',
+                    ]);
+                    return back()->with(compact('error'));
+                }
+            }
+            $betSumPrice = array_sum($betArray);
+            if ($betSumPrice <= 0) {
+                $error = new MessageBag([
+                    'title' => '下注失败',
+                    'message' => '下注总额必须大于0',
+                ]);
+                return back()->with(compact('error'));
+            }
+            $time = time();
+            if (($time >= ($bet->start_time + $bet->current_sealing_time)) || ($bet->status != 0)) {
+                $error = new MessageBag([
+                    'title' => '下注失败',
+                    'message' => '该期已封盘或已结束',
+                ]);
+                return back()->with(compact('error'));
+            }
+            $form->bet_sum = $betSumPrice;
+            $form->order_number = time();
         });
-        $form->column(1 / 2, function ($form) {
 
-            $form->open_countdown(1);
+        $form->column(1 / 3, function ($form) use ($bet) {
+            $end_time = $bet->start_time + $bet->current_open_ball_time - time();
+            $form->bet_end_countdown($end_time);
         });
 
-//        $form->number('phase_number', "");
-//        $form->text('order_number', __('Order number'));
+        $form->column(1 / 3, function ($form) use ($bet) {
+            $sealing_time = $bet->start_time + $bet->current_sealing_time - time();
+            $form->bet_sealing_countdown($sealing_time);
+        });
+
+        $form->column(1 / 3, function ($form) use ($bet) {
+            $form->select('phase_number', "当前期数")->options([$bet->phase_number => $bet->phase_number])->default($bet->phase_number)->required()->setWidth(3, 2);
+//            $form->number('phase_number', "当前期数")->default($bet->phase_number)->required()->setWidth(3, 2);
+            $form->divider();
+        });
+
 
         $form->column(1 / 4, function ($form) {
             $form->number('sum_max', "总和大")->default(0)->required()->setWidth(0, 3)->min(0);
@@ -322,7 +276,6 @@ class BetController extends AdminController
             $form->divider();
         });
 //
-
 
 
         $form->column(1 / 3, function ($form) {
@@ -380,7 +333,6 @@ class BetController extends AdminController
             $form->number('after_three_discrete', "后三杂六")->default(0)->required()->setWidth(0, 3)->min(0);
             $form->divider();
         });
-
 
 
         $form->column(1 / 6, function ($form) {
@@ -487,7 +439,6 @@ class BetController extends AdminController
         if ($form->isEditing()) {
 
             $form->tools(function (Form\Tools $tools) {
-
 
 
                 // 去掉`删除`按钮
