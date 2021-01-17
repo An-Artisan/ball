@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 15/01/2021 18:50:31
+ Date: 17/01/2021 21:28:58
 */
 
 SET NAMES utf8mb4;
@@ -22,17 +22,17 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_menu`;
 CREATE TABLE `admin_menu`  (
-                               `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-                               `parent_id` int(11) NOT NULL DEFAULT 0,
-                               `order` int(11) NOT NULL DEFAULT 0,
-                               `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                               `icon` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                               `uri` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                               `permission` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                               `created_at` timestamp(0) NULL DEFAULT NULL,
-                               `updated_at` timestamp(0) NULL DEFAULT NULL,
-                               PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL DEFAULT 0,
+  `order` int(11) NOT NULL DEFAULT 0,
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uri` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `permission` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_menu
@@ -47,23 +47,24 @@ INSERT INTO `admin_menu` VALUES (7, 2, 7, '操作日志', 'fa-history', 'auth/lo
 INSERT INTO `admin_menu` VALUES (8, 0, 0, '下注管理', 'fa-bars', NULL, '*', '2021-01-14 09:14:54', '2021-01-14 09:14:54');
 INSERT INTO `admin_menu` VALUES (9, 8, 0, '下注列表', 'fa-bars', 'user-bets', '*', '2021-01-14 09:15:03', '2021-01-14 09:15:28');
 INSERT INTO `admin_menu` VALUES (10, 8, 0, '下注赔率', 'fa-bars', 'user-bet-odds', '*', '2021-01-15 05:39:20', '2021-01-15 05:39:20');
+INSERT INTO `admin_menu` VALUES (11, 8, 0, '开奖管理', 'fa-bars', 'open-balls', '*', '2021-01-16 06:29:58', '2021-01-16 06:29:58');
 
 -- ----------------------------
 -- Table structure for admin_operation_log
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_operation_log`;
 CREATE TABLE `admin_operation_log`  (
-                                        `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-                                        `user_id` int(11) NOT NULL,
-                                        `path` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                        `method` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                        `ip` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                        `input` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                        `created_at` timestamp(0) NULL DEFAULT NULL,
-                                        `updated_at` timestamp(0) NULL DEFAULT NULL,
-                                        PRIMARY KEY (`id`) USING BTREE,
-                                        INDEX `admin_operation_log_user_id_index`(`user_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 536 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `path` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `method` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `input` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `admin_operation_log_user_id_index`(`user_id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 827 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of admin_operation_log
@@ -603,22 +604,313 @@ INSERT INTO `admin_operation_log` VALUES (532, 1, 'admin/user-bets', 'POST', '12
 INSERT INTO `admin_operation_log` VALUES (533, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-15 10:43:56', '2021-01-15 10:43:56');
 INSERT INTO `admin_operation_log` VALUES (534, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-15 10:45:05', '2021-01-15 10:45:05');
 INSERT INTO `admin_operation_log` VALUES (535, 1, 'admin/user-bets', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-15 10:45:10', '2021-01-15 10:45:10');
+INSERT INTO `admin_operation_log` VALUES (536, 1, 'admin', 'GET', '127.0.0.1', '[]', '2021-01-15 11:50:14', '2021-01-15 11:50:14');
+INSERT INTO `admin_operation_log` VALUES (537, 1, 'admin/user-bets', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-15 11:50:15', '2021-01-15 11:50:15');
+INSERT INTO `admin_operation_log` VALUES (538, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-15 11:50:33', '2021-01-15 11:50:33');
+INSERT INTO `admin_operation_log` VALUES (539, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-15 11:51:11', '2021-01-15 11:51:11');
+INSERT INTO `admin_operation_log` VALUES (540, 1, 'admin/user-bet-odds', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-15 11:51:19', '2021-01-15 11:51:19');
+INSERT INTO `admin_operation_log` VALUES (541, 1, 'admin/user-bets', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-15 11:51:20', '2021-01-15 11:51:20');
+INSERT INTO `admin_operation_log` VALUES (542, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-15 11:51:22', '2021-01-15 11:51:22');
+INSERT INTO `admin_operation_log` VALUES (543, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-15 11:53:25', '2021-01-15 11:53:25');
+INSERT INTO `admin_operation_log` VALUES (544, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-15 11:53:31', '2021-01-15 11:53:31');
+INSERT INTO `admin_operation_log` VALUES (545, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-15 11:54:25', '2021-01-15 11:54:25');
+INSERT INTO `admin_operation_log` VALUES (546, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 06:08:18', '2021-01-16 06:08:18');
+INSERT INTO `admin_operation_log` VALUES (547, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 06:08:37', '2021-01-16 06:08:37');
+INSERT INTO `admin_operation_log` VALUES (548, 1, 'admin', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 06:29:29', '2021-01-16 06:29:29');
+INSERT INTO `admin_operation_log` VALUES (549, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 06:29:39', '2021-01-16 06:29:39');
+INSERT INTO `admin_operation_log` VALUES (550, 1, 'admin/auth/menu', 'POST', '127.0.0.1', '{\"parent_id\":\"8\",\"title\":\"\\u5f00\\u5956\\u7ba1\\u7406\",\"icon\":\"fa-bars\",\"uri\":\"open-balls\",\"roles\":[\"1\",null],\"permission\":\"*\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\"}', '2021-01-16 06:29:58', '2021-01-16 06:29:58');
+INSERT INTO `admin_operation_log` VALUES (551, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '[]', '2021-01-16 06:29:59', '2021-01-16 06:29:59');
+INSERT INTO `admin_operation_log` VALUES (552, 1, 'admin/auth/menu', 'GET', '127.0.0.1', '[]', '2021-01-16 06:30:00', '2021-01-16 06:30:00');
+INSERT INTO `admin_operation_log` VALUES (553, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:30:13', '2021-01-16 06:30:13');
+INSERT INTO `admin_operation_log` VALUES (554, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:34:47', '2021-01-16 06:34:47');
+INSERT INTO `admin_operation_log` VALUES (555, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:36:43', '2021-01-16 06:36:43');
+INSERT INTO `admin_operation_log` VALUES (556, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:38:12', '2021-01-16 06:38:12');
+INSERT INTO `admin_operation_log` VALUES (557, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"open_method\",\"value\":\"2\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 06:38:17', '2021-01-16 06:38:17');
+INSERT INTO `admin_operation_log` VALUES (558, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:48:38', '2021-01-16 06:48:38');
+INSERT INTO `admin_operation_log` VALUES (559, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:48:52', '2021-01-16 06:48:52');
+INSERT INTO `admin_operation_log` VALUES (560, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"open_method\",\"value\":\"0\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 06:49:00', '2021-01-16 06:49:00');
+INSERT INTO `admin_operation_log` VALUES (561, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:50:24', '2021-01-16 06:50:24');
+INSERT INTO `admin_operation_log` VALUES (562, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"second_ball\",\"value\":\"7\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 06:50:28', '2021-01-16 06:50:28');
+INSERT INTO `admin_operation_log` VALUES (563, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:51:43', '2021-01-16 06:51:43');
+INSERT INTO `admin_operation_log` VALUES (564, 1, 'admin/open-balls/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 06:53:44', '2021-01-16 06:53:44');
+INSERT INTO `admin_operation_log` VALUES (565, 1, 'admin/open-balls', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 06:54:03', '2021-01-16 06:54:03');
+INSERT INTO `admin_operation_log` VALUES (566, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:54:04', '2021-01-16 06:54:04');
+INSERT INTO `admin_operation_log` VALUES (567, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:54:11', '2021-01-16 06:54:11');
+INSERT INTO `admin_operation_log` VALUES (568, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:56:39', '2021-01-16 06:56:39');
+INSERT INTO `admin_operation_log` VALUES (569, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:57:04', '2021-01-16 06:57:04');
+INSERT INTO `admin_operation_log` VALUES (570, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"status\":\"on\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_method\":\"PUT\"}', '2021-01-16 06:57:05', '2021-01-16 06:57:05');
+INSERT INTO `admin_operation_log` VALUES (571, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"status\":\"off\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_method\":\"PUT\"}', '2021-01-16 06:57:06', '2021-01-16 06:57:06');
+INSERT INTO `admin_operation_log` VALUES (572, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:58:22', '2021-01-16 06:58:22');
+INSERT INTO `admin_operation_log` VALUES (573, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:59:30', '2021-01-16 06:59:30');
+INSERT INTO `admin_operation_log` VALUES (574, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"next_open_ball_time\",\"value\":\"400\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 06:59:35', '2021-01-16 06:59:35');
+INSERT INTO `admin_operation_log` VALUES (575, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 06:59:35', '2021-01-16 06:59:35');
+INSERT INTO `admin_operation_log` VALUES (576, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:00:18', '2021-01-16 07:00:18');
+INSERT INTO `admin_operation_log` VALUES (577, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"next_open_ball_time\",\"value\":\"3001\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 07:00:22', '2021-01-16 07:00:22');
+INSERT INTO `admin_operation_log` VALUES (578, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"next_open_ball_time\",\"value\":\"30011\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 07:00:28', '2021-01-16 07:00:28');
+INSERT INTO `admin_operation_log` VALUES (579, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:00:46', '2021-01-16 07:00:46');
+INSERT INTO `admin_operation_log` VALUES (580, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"next_open_ball_time\",\"value\":\"30011\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 07:00:49', '2021-01-16 07:00:49');
+INSERT INTO `admin_operation_log` VALUES (581, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:00:59', '2021-01-16 07:00:59');
+INSERT INTO `admin_operation_log` VALUES (582, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:01:00', '2021-01-16 07:01:00');
+INSERT INTO `admin_operation_log` VALUES (583, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"next_sealing_time\",\"value\":\"1201\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 07:01:31', '2021-01-16 07:01:31');
+INSERT INTO `admin_operation_log` VALUES (584, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:02:13', '2021-01-16 07:02:13');
+INSERT INTO `admin_operation_log` VALUES (585, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"next_open_ball_time\",\"value\":\"3001\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 07:02:16', '2021-01-16 07:02:16');
+INSERT INTO `admin_operation_log` VALUES (586, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:02:59', '2021-01-16 07:02:59');
+INSERT INTO `admin_operation_log` VALUES (587, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"fifth_ball\",\"value\":\"1\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 07:03:02', '2021-01-16 07:03:02');
+INSERT INTO `admin_operation_log` VALUES (588, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"fifth_ball\",\"value\":\"1\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 07:03:05', '2021-01-16 07:03:05');
+INSERT INTO `admin_operation_log` VALUES (589, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:04:22', '2021-01-16 07:04:22');
+INSERT INTO `admin_operation_log` VALUES (590, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"fifth_ball\",\"value\":\"4\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 07:04:26', '2021-01-16 07:04:26');
+INSERT INTO `admin_operation_log` VALUES (591, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:05:17', '2021-01-16 07:05:17');
+INSERT INTO `admin_operation_log` VALUES (592, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"next_open_ball_time\",\"value\":\"30011\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 07:05:21', '2021-01-16 07:05:21');
+INSERT INTO `admin_operation_log` VALUES (593, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:06:53', '2021-01-16 07:06:53');
+INSERT INTO `admin_operation_log` VALUES (594, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"next_sealing_time\",\"value\":\"1201\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 07:06:57', '2021-01-16 07:06:57');
+INSERT INTO `admin_operation_log` VALUES (595, 1, 'admin/open-balls/2', 'PUT', '127.0.0.1', '{\"name\":\"next_sealing_time\",\"value\":\"1201\",\"pk\":\"2\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 07:06:59', '2021-01-16 07:06:59');
+INSERT INTO `admin_operation_log` VALUES (596, 1, 'admin/user-bets', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 07:07:51', '2021-01-16 07:07:51');
+INSERT INTO `admin_operation_log` VALUES (597, 1, 'admin/open-balls', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 07:07:55', '2021-01-16 07:07:55');
+INSERT INTO `admin_operation_log` VALUES (598, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:09:53', '2021-01-16 07:09:53');
+INSERT INTO `admin_operation_log` VALUES (599, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:10:27', '2021-01-16 07:10:27');
+INSERT INTO `admin_operation_log` VALUES (600, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:10:28', '2021-01-16 07:10:28');
+INSERT INTO `admin_operation_log` VALUES (601, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:18:39', '2021-01-16 07:18:39');
+INSERT INTO `admin_operation_log` VALUES (602, 1, 'admin/open-balls', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 07:18:45', '2021-01-16 07:18:45');
+INSERT INTO `admin_operation_log` VALUES (603, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:19:04', '2021-01-16 07:19:04');
+INSERT INTO `admin_operation_log` VALUES (604, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:19:15', '2021-01-16 07:19:15');
+INSERT INTO `admin_operation_log` VALUES (605, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:19:18', '2021-01-16 07:19:18');
+INSERT INTO `admin_operation_log` VALUES (606, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:19:35', '2021-01-16 07:19:35');
+INSERT INTO `admin_operation_log` VALUES (607, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:20:07', '2021-01-16 07:20:07');
+INSERT INTO `admin_operation_log` VALUES (608, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:24:50', '2021-01-16 07:24:50');
+INSERT INTO `admin_operation_log` VALUES (609, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:27:44', '2021-01-16 07:27:44');
+INSERT INTO `admin_operation_log` VALUES (610, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:27:48', '2021-01-16 07:27:48');
+INSERT INTO `admin_operation_log` VALUES (611, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:28:58', '2021-01-16 07:28:58');
+INSERT INTO `admin_operation_log` VALUES (612, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 07:29:22', '2021-01-16 07:29:22');
+INSERT INTO `admin_operation_log` VALUES (613, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 07:29:24', '2021-01-16 07:29:24');
+INSERT INTO `admin_operation_log` VALUES (614, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:29:47', '2021-01-16 07:29:47');
+INSERT INTO `admin_operation_log` VALUES (615, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:34:01', '2021-01-16 07:34:01');
+INSERT INTO `admin_operation_log` VALUES (616, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:35:01', '2021-01-16 07:35:01');
+INSERT INTO `admin_operation_log` VALUES (617, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:35:41', '2021-01-16 07:35:41');
+INSERT INTO `admin_operation_log` VALUES (618, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:36:15', '2021-01-16 07:36:15');
+INSERT INTO `admin_operation_log` VALUES (619, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:36:23', '2021-01-16 07:36:23');
+INSERT INTO `admin_operation_log` VALUES (620, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:36:52', '2021-01-16 07:36:52');
+INSERT INTO `admin_operation_log` VALUES (621, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:37:29', '2021-01-16 07:37:29');
+INSERT INTO `admin_operation_log` VALUES (622, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:37:56', '2021-01-16 07:37:56');
+INSERT INTO `admin_operation_log` VALUES (623, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:37:58', '2021-01-16 07:37:58');
+INSERT INTO `admin_operation_log` VALUES (624, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:38:07', '2021-01-16 07:38:07');
+INSERT INTO `admin_operation_log` VALUES (625, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:38:35', '2021-01-16 07:38:35');
+INSERT INTO `admin_operation_log` VALUES (626, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:41:24', '2021-01-16 07:41:24');
+INSERT INTO `admin_operation_log` VALUES (627, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:42:03', '2021-01-16 07:42:03');
+INSERT INTO `admin_operation_log` VALUES (628, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:42:25', '2021-01-16 07:42:25');
+INSERT INTO `admin_operation_log` VALUES (629, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:42:34', '2021-01-16 07:42:34');
+INSERT INTO `admin_operation_log` VALUES (630, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:43:17', '2021-01-16 07:43:17');
+INSERT INTO `admin_operation_log` VALUES (631, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:45:31', '2021-01-16 07:45:31');
+INSERT INTO `admin_operation_log` VALUES (632, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:45:43', '2021-01-16 07:45:43');
+INSERT INTO `admin_operation_log` VALUES (633, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:45:53', '2021-01-16 07:45:53');
+INSERT INTO `admin_operation_log` VALUES (634, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:46:29', '2021-01-16 07:46:29');
+INSERT INTO `admin_operation_log` VALUES (635, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:46:49', '2021-01-16 07:46:49');
+INSERT INTO `admin_operation_log` VALUES (636, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:48:33', '2021-01-16 07:48:33');
+INSERT INTO `admin_operation_log` VALUES (637, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:51:32', '2021-01-16 07:51:32');
+INSERT INTO `admin_operation_log` VALUES (638, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:51:35', '2021-01-16 07:51:35');
+INSERT INTO `admin_operation_log` VALUES (639, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:52:02', '2021-01-16 07:52:02');
+INSERT INTO `admin_operation_log` VALUES (640, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:52:58', '2021-01-16 07:52:58');
+INSERT INTO `admin_operation_log` VALUES (641, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:53:37', '2021-01-16 07:53:37');
+INSERT INTO `admin_operation_log` VALUES (642, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:54:12', '2021-01-16 07:54:12');
+INSERT INTO `admin_operation_log` VALUES (643, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:54:52', '2021-01-16 07:54:52');
+INSERT INTO `admin_operation_log` VALUES (644, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:54:53', '2021-01-16 07:54:53');
+INSERT INTO `admin_operation_log` VALUES (645, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:55:15', '2021-01-16 07:55:15');
+INSERT INTO `admin_operation_log` VALUES (646, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:56:02', '2021-01-16 07:56:02');
+INSERT INTO `admin_operation_log` VALUES (647, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:56:14', '2021-01-16 07:56:14');
+INSERT INTO `admin_operation_log` VALUES (648, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:56:15', '2021-01-16 07:56:15');
+INSERT INTO `admin_operation_log` VALUES (649, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_method\":\"PUT\",\"_edit_inline\":\"true\",\"start_time\":\"2021-01-14\"}', '2021-01-16 07:56:26', '2021-01-16 07:56:26');
+INSERT INTO `admin_operation_log` VALUES (650, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:56:40', '2021-01-16 07:56:40');
+INSERT INTO `admin_operation_log` VALUES (651, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"name\":\"open_method\",\"value\":\"2\",\"pk\":\"1\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_editable\":\"1\",\"_method\":\"PUT\"}', '2021-01-16 07:56:45', '2021-01-16 07:56:45');
+INSERT INTO `admin_operation_log` VALUES (652, 1, 'admin/open-balls/1', 'PUT', '127.0.0.1', '{\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_method\":\"PUT\",\"_edit_inline\":\"true\",\"start_time\":\"2021-01-07\"}', '2021-01-16 07:56:50', '2021-01-16 07:56:50');
+INSERT INTO `admin_operation_log` VALUES (653, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:57:31', '2021-01-16 07:57:31');
+INSERT INTO `admin_operation_log` VALUES (654, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:57:52', '2021-01-16 07:57:52');
+INSERT INTO `admin_operation_log` VALUES (655, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 07:57:56', '2021-01-16 07:57:56');
+INSERT INTO `admin_operation_log` VALUES (656, 1, 'admin/user-bets', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 07:58:36', '2021-01-16 07:58:36');
+INSERT INTO `admin_operation_log` VALUES (657, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 07:58:38', '2021-01-16 07:58:38');
+INSERT INTO `admin_operation_log` VALUES (658, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 07:58:43', '2021-01-16 07:58:43');
+INSERT INTO `admin_operation_log` VALUES (659, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:00:09', '2021-01-16 08:00:09');
+INSERT INTO `admin_operation_log` VALUES (660, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:00:13', '2021-01-16 08:00:13');
+INSERT INTO `admin_operation_log` VALUES (661, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:00:18', '2021-01-16 08:00:18');
+INSERT INTO `admin_operation_log` VALUES (662, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:00:27', '2021-01-16 08:00:27');
+INSERT INTO `admin_operation_log` VALUES (663, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:00:39', '2021-01-16 08:00:39');
+INSERT INTO `admin_operation_log` VALUES (664, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:00:47', '2021-01-16 08:00:47');
+INSERT INTO `admin_operation_log` VALUES (665, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:01:07', '2021-01-16 08:01:07');
+INSERT INTO `admin_operation_log` VALUES (666, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:01:11', '2021-01-16 08:01:11');
+INSERT INTO `admin_operation_log` VALUES (667, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:01:18', '2021-01-16 08:01:18');
+INSERT INTO `admin_operation_log` VALUES (668, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:01:37', '2021-01-16 08:01:37');
+INSERT INTO `admin_operation_log` VALUES (669, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:01:56', '2021-01-16 08:01:56');
+INSERT INTO `admin_operation_log` VALUES (670, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:02:06', '2021-01-16 08:02:06');
+INSERT INTO `admin_operation_log` VALUES (671, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:02:23', '2021-01-16 08:02:23');
+INSERT INTO `admin_operation_log` VALUES (672, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:03:12', '2021-01-16 08:03:12');
+INSERT INTO `admin_operation_log` VALUES (673, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:03:38', '2021-01-16 08:03:38');
+INSERT INTO `admin_operation_log` VALUES (674, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:04:25', '2021-01-16 08:04:25');
+INSERT INTO `admin_operation_log` VALUES (675, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:07:27', '2021-01-16 08:07:27');
+INSERT INTO `admin_operation_log` VALUES (676, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:07:59', '2021-01-16 08:07:59');
+INSERT INTO `admin_operation_log` VALUES (677, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:08:18', '2021-01-16 08:08:18');
+INSERT INTO `admin_operation_log` VALUES (678, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:10:28', '2021-01-16 08:10:28');
+INSERT INTO `admin_operation_log` VALUES (679, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:10:29', '2021-01-16 08:10:29');
+INSERT INTO `admin_operation_log` VALUES (680, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:13:04', '2021-01-16 08:13:04');
+INSERT INTO `admin_operation_log` VALUES (681, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:13:31', '2021-01-16 08:13:31');
+INSERT INTO `admin_operation_log` VALUES (682, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:13:36', '2021-01-16 08:13:36');
+INSERT INTO `admin_operation_log` VALUES (683, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:14:01', '2021-01-16 08:14:01');
+INSERT INTO `admin_operation_log` VALUES (684, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:14:16', '2021-01-16 08:14:16');
+INSERT INTO `admin_operation_log` VALUES (685, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:14:25', '2021-01-16 08:14:25');
+INSERT INTO `admin_operation_log` VALUES (686, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:15:46', '2021-01-16 08:15:46');
+INSERT INTO `admin_operation_log` VALUES (687, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:21:00', '2021-01-16 08:21:00');
+INSERT INTO `admin_operation_log` VALUES (688, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:21:28', '2021-01-16 08:21:28');
+INSERT INTO `admin_operation_log` VALUES (689, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:21:41', '2021-01-16 08:21:41');
+INSERT INTO `admin_operation_log` VALUES (690, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:22:12', '2021-01-16 08:22:12');
+INSERT INTO `admin_operation_log` VALUES (691, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:22:21', '2021-01-16 08:22:21');
+INSERT INTO `admin_operation_log` VALUES (692, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:23:30', '2021-01-16 08:23:30');
+INSERT INTO `admin_operation_log` VALUES (693, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:23:58', '2021-01-16 08:23:58');
+INSERT INTO `admin_operation_log` VALUES (694, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:24:29', '2021-01-16 08:24:29');
+INSERT INTO `admin_operation_log` VALUES (695, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:24:33', '2021-01-16 08:24:33');
+INSERT INTO `admin_operation_log` VALUES (696, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:24:50', '2021-01-16 08:24:50');
+INSERT INTO `admin_operation_log` VALUES (697, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:25:05', '2021-01-16 08:25:05');
+INSERT INTO `admin_operation_log` VALUES (698, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:25:10', '2021-01-16 08:25:10');
+INSERT INTO `admin_operation_log` VALUES (699, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:26:12', '2021-01-16 08:26:12');
+INSERT INTO `admin_operation_log` VALUES (700, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:26:21', '2021-01-16 08:26:21');
+INSERT INTO `admin_operation_log` VALUES (701, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:26:56', '2021-01-16 08:26:56');
+INSERT INTO `admin_operation_log` VALUES (702, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:27:04', '2021-01-16 08:27:04');
+INSERT INTO `admin_operation_log` VALUES (703, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:28:27', '2021-01-16 08:28:27');
+INSERT INTO `admin_operation_log` VALUES (704, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:28:27', '2021-01-16 08:28:27');
+INSERT INTO `admin_operation_log` VALUES (705, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:28:55', '2021-01-16 08:28:55');
+INSERT INTO `admin_operation_log` VALUES (706, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:28:55', '2021-01-16 08:28:55');
+INSERT INTO `admin_operation_log` VALUES (707, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:29:04', '2021-01-16 08:29:04');
+INSERT INTO `admin_operation_log` VALUES (708, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:30:26', '2021-01-16 08:30:26');
+INSERT INTO `admin_operation_log` VALUES (709, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:30:36', '2021-01-16 08:30:36');
+INSERT INTO `admin_operation_log` VALUES (710, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:31:28', '2021-01-16 08:31:28');
+INSERT INTO `admin_operation_log` VALUES (711, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:31:30', '2021-01-16 08:31:30');
+INSERT INTO `admin_operation_log` VALUES (712, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:31:44', '2021-01-16 08:31:44');
+INSERT INTO `admin_operation_log` VALUES (713, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:31:51', '2021-01-16 08:31:51');
+INSERT INTO `admin_operation_log` VALUES (714, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:31:58', '2021-01-16 08:31:58');
+INSERT INTO `admin_operation_log` VALUES (715, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:32:01', '2021-01-16 08:32:01');
+INSERT INTO `admin_operation_log` VALUES (716, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:32:18', '2021-01-16 08:32:18');
+INSERT INTO `admin_operation_log` VALUES (717, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:32:47', '2021-01-16 08:32:47');
+INSERT INTO `admin_operation_log` VALUES (718, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:33:01', '2021-01-16 08:33:01');
+INSERT INTO `admin_operation_log` VALUES (719, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:33:20', '2021-01-16 08:33:20');
+INSERT INTO `admin_operation_log` VALUES (720, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:33:27', '2021-01-16 08:33:27');
+INSERT INTO `admin_operation_log` VALUES (721, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:33:38', '2021-01-16 08:33:38');
+INSERT INTO `admin_operation_log` VALUES (722, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:33:42', '2021-01-16 08:33:42');
+INSERT INTO `admin_operation_log` VALUES (723, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:33:48', '2021-01-16 08:33:48');
+INSERT INTO `admin_operation_log` VALUES (724, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:34:02', '2021-01-16 08:34:02');
+INSERT INTO `admin_operation_log` VALUES (725, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:34:14', '2021-01-16 08:34:14');
+INSERT INTO `admin_operation_log` VALUES (726, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:34:21', '2021-01-16 08:34:21');
+INSERT INTO `admin_operation_log` VALUES (727, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:34:25', '2021-01-16 08:34:25');
+INSERT INTO `admin_operation_log` VALUES (728, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:34:33', '2021-01-16 08:34:33');
+INSERT INTO `admin_operation_log` VALUES (729, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:34:36', '2021-01-16 08:34:36');
+INSERT INTO `admin_operation_log` VALUES (730, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:34:43', '2021-01-16 08:34:43');
+INSERT INTO `admin_operation_log` VALUES (731, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:34:50', '2021-01-16 08:34:50');
+INSERT INTO `admin_operation_log` VALUES (732, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:34:56', '2021-01-16 08:34:56');
+INSERT INTO `admin_operation_log` VALUES (733, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:35:02', '2021-01-16 08:35:02');
+INSERT INTO `admin_operation_log` VALUES (734, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:35:26', '2021-01-16 08:35:26');
+INSERT INTO `admin_operation_log` VALUES (735, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:35:32', '2021-01-16 08:35:32');
+INSERT INTO `admin_operation_log` VALUES (736, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:35:39', '2021-01-16 08:35:39');
+INSERT INTO `admin_operation_log` VALUES (737, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:35:56', '2021-01-16 08:35:56');
+INSERT INTO `admin_operation_log` VALUES (738, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:36:02', '2021-01-16 08:36:02');
+INSERT INTO `admin_operation_log` VALUES (739, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:36:11', '2021-01-16 08:36:11');
+INSERT INTO `admin_operation_log` VALUES (740, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:36:46', '2021-01-16 08:36:46');
+INSERT INTO `admin_operation_log` VALUES (741, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:36:55', '2021-01-16 08:36:55');
+INSERT INTO `admin_operation_log` VALUES (742, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:37:08', '2021-01-16 08:37:08');
+INSERT INTO `admin_operation_log` VALUES (743, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:37:12', '2021-01-16 08:37:12');
+INSERT INTO `admin_operation_log` VALUES (744, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:37:24', '2021-01-16 08:37:24');
+INSERT INTO `admin_operation_log` VALUES (745, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:37:32', '2021-01-16 08:37:32');
+INSERT INTO `admin_operation_log` VALUES (746, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:37:41', '2021-01-16 08:37:41');
+INSERT INTO `admin_operation_log` VALUES (747, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:38:18', '2021-01-16 08:38:18');
+INSERT INTO `admin_operation_log` VALUES (748, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"phase_number\":null,\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\"}', '2021-01-16 08:38:35', '2021-01-16 08:38:35');
+INSERT INTO `admin_operation_log` VALUES (749, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:38:36', '2021-01-16 08:38:36');
+INSERT INTO `admin_operation_log` VALUES (750, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:39:21', '2021-01-16 08:39:21');
+INSERT INTO `admin_operation_log` VALUES (751, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\"}', '2021-01-16 08:40:24', '2021-01-16 08:40:24');
+INSERT INTO `admin_operation_log` VALUES (752, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 08:40:41', '2021-01-16 08:40:41');
+INSERT INTO `admin_operation_log` VALUES (753, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 08:40:42', '2021-01-16 08:40:42');
+INSERT INTO `admin_operation_log` VALUES (754, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"phase_number\":null,\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 08:40:48', '2021-01-16 08:40:48');
+INSERT INTO `admin_operation_log` VALUES (755, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 08:41:06', '2021-01-16 08:41:06');
+INSERT INTO `admin_operation_log` VALUES (756, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 08:41:07', '2021-01-16 08:41:07');
+INSERT INTO `admin_operation_log` VALUES (757, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 08:41:11', '2021-01-16 08:41:11');
+INSERT INTO `admin_operation_log` VALUES (758, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 08:41:32', '2021-01-16 08:41:32');
+INSERT INTO `admin_operation_log` VALUES (759, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 08:41:34', '2021-01-16 08:41:34');
+INSERT INTO `admin_operation_log` VALUES (760, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 08:41:41', '2021-01-16 08:41:41');
+INSERT INTO `admin_operation_log` VALUES (761, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 08:42:14', '2021-01-16 08:42:14');
+INSERT INTO `admin_operation_log` VALUES (762, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 08:42:15', '2021-01-16 08:42:15');
+INSERT INTO `admin_operation_log` VALUES (763, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 08:42:17', '2021-01-16 08:42:17');
+INSERT INTO `admin_operation_log` VALUES (764, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 08:42:24', '2021-01-16 08:42:24');
+INSERT INTO `admin_operation_log` VALUES (765, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 08:42:25', '2021-01-16 08:42:25');
+INSERT INTO `admin_operation_log` VALUES (766, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 08:42:27', '2021-01-16 08:42:27');
+INSERT INTO `admin_operation_log` VALUES (767, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:42:27', '2021-01-16 08:42:27');
+INSERT INTO `admin_operation_log` VALUES (768, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:42:53', '2021-01-16 08:42:53');
+INSERT INTO `admin_operation_log` VALUES (769, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\"}', '2021-01-16 08:42:55', '2021-01-16 08:42:55');
+INSERT INTO `admin_operation_log` VALUES (770, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:42:55', '2021-01-16 08:42:55');
+INSERT INTO `admin_operation_log` VALUES (771, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:44:46', '2021-01-16 08:44:46');
+INSERT INTO `admin_operation_log` VALUES (772, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\"}', '2021-01-16 08:44:51', '2021-01-16 08:44:51');
+INSERT INTO `admin_operation_log` VALUES (773, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 08:44:51', '2021-01-16 08:44:51');
+INSERT INTO `admin_operation_log` VALUES (774, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 08:45:13', '2021-01-16 08:45:13');
+INSERT INTO `admin_operation_log` VALUES (775, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 08:50:05', '2021-01-16 08:50:05');
+INSERT INTO `admin_operation_log` VALUES (776, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 08:50:13', '2021-01-16 08:50:13');
+INSERT INTO `admin_operation_log` VALUES (777, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 08:50:15', '2021-01-16 08:50:15');
+INSERT INTO `admin_operation_log` VALUES (778, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 08:50:16', '2021-01-16 08:50:16');
+INSERT INTO `admin_operation_log` VALUES (779, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:51:04', '2021-01-16 08:51:04');
+INSERT INTO `admin_operation_log` VALUES (780, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\"}', '2021-01-16 08:51:06', '2021-01-16 08:51:06');
+INSERT INTO `admin_operation_log` VALUES (781, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 08:55:24', '2021-01-16 08:55:24');
+INSERT INTO `admin_operation_log` VALUES (782, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 08:55:26', '2021-01-16 08:55:26');
+INSERT INTO `admin_operation_log` VALUES (783, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:55:37', '2021-01-16 08:55:37');
+INSERT INTO `admin_operation_log` VALUES (784, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:57:19', '2021-01-16 08:57:19');
+INSERT INTO `admin_operation_log` VALUES (785, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:57:28', '2021-01-16 08:57:28');
+INSERT INTO `admin_operation_log` VALUES (786, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:57:33', '2021-01-16 08:57:33');
+INSERT INTO `admin_operation_log` VALUES (787, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:57:52', '2021-01-16 08:57:52');
+INSERT INTO `admin_operation_log` VALUES (788, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\"}', '2021-01-16 08:58:08', '2021-01-16 08:58:08');
+INSERT INTO `admin_operation_log` VALUES (789, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 08:58:46', '2021-01-16 08:58:46');
+INSERT INTO `admin_operation_log` VALUES (790, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 08:58:48', '2021-01-16 08:58:48');
+INSERT INTO `admin_operation_log` VALUES (791, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 08:58:50', '2021-01-16 08:58:50');
+INSERT INTO `admin_operation_log` VALUES (792, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 08:58:50', '2021-01-16 08:58:50');
+INSERT INTO `admin_operation_log` VALUES (793, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 09:00:11', '2021-01-16 09:00:11');
+INSERT INTO `admin_operation_log` VALUES (794, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\"}', '2021-01-16 09:00:15', '2021-01-16 09:00:15');
+INSERT INTO `admin_operation_log` VALUES (795, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 09:00:15', '2021-01-16 09:00:15');
+INSERT INTO `admin_operation_log` VALUES (796, 1, 'admin/user-bets', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 09:00:32', '2021-01-16 09:00:32');
+INSERT INTO `admin_operation_log` VALUES (797, 1, 'admin/open-balls', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 09:00:46', '2021-01-16 09:00:46');
+INSERT INTO `admin_operation_log` VALUES (798, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 09:01:34', '2021-01-16 09:01:34');
+INSERT INTO `admin_operation_log` VALUES (799, 1, 'admin/open-balls', 'GET', '127.0.0.1', '[]', '2021-01-16 09:01:42', '2021-01-16 09:01:42');
+INSERT INTO `admin_operation_log` VALUES (800, 1, 'admin/user-bets', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 09:01:55', '2021-01-16 09:01:55');
+INSERT INTO `admin_operation_log` VALUES (801, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 09:01:57', '2021-01-16 09:01:57');
+INSERT INTO `admin_operation_log` VALUES (802, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 09:02:10', '2021-01-16 09:02:10');
+INSERT INTO `admin_operation_log` VALUES (803, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 09:02:11', '2021-01-16 09:02:11');
+INSERT INTO `admin_operation_log` VALUES (804, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 09:02:15', '2021-01-16 09:02:15');
+INSERT INTO `admin_operation_log` VALUES (805, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 09:02:17', '2021-01-16 09:02:17');
+INSERT INTO `admin_operation_log` VALUES (806, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 09:02:18', '2021-01-16 09:02:18');
+INSERT INTO `admin_operation_log` VALUES (807, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 09:02:18', '2021-01-16 09:02:18');
+INSERT INTO `admin_operation_log` VALUES (808, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 09:06:49', '2021-01-16 09:06:49');
+INSERT INTO `admin_operation_log` VALUES (809, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 09:06:51', '2021-01-16 09:06:51');
+INSERT INTO `admin_operation_log` VALUES (810, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 09:07:35', '2021-01-16 09:07:35');
+INSERT INTO `admin_operation_log` VALUES (811, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 09:08:20', '2021-01-16 09:08:20');
+INSERT INTO `admin_operation_log` VALUES (812, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 09:08:22', '2021-01-16 09:08:22');
+INSERT INTO `admin_operation_log` VALUES (813, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 09:08:22', '2021-01-16 09:08:22');
+INSERT INTO `admin_operation_log` VALUES (814, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"0\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\"}', '2021-01-16 09:08:25', '2021-01-16 09:08:25');
+INSERT INTO `admin_operation_log` VALUES (815, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 09:08:26', '2021-01-16 09:08:26');
+INSERT INTO `admin_operation_log` VALUES (816, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 09:09:30', '2021-01-16 09:09:30');
+INSERT INTO `admin_operation_log` VALUES (817, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"100\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"3\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"3\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\"}', '2021-01-16 09:09:55', '2021-01-16 09:09:55');
+INSERT INTO `admin_operation_log` VALUES (818, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '[]', '2021-01-16 09:09:55', '2021-01-16 09:09:55');
+INSERT INTO `admin_operation_log` VALUES (819, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"phase_number\":\"50755257\",\"sum_max\":\"100\",\"sum_min\":\"0\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"2\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"2\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\"}', '2021-01-16 09:10:11', '2021-01-16 09:10:11');
+INSERT INTO `admin_operation_log` VALUES (820, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 09:10:11', '2021-01-16 09:10:11');
+INSERT INTO `admin_operation_log` VALUES (821, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 09:10:44', '2021-01-16 09:10:44');
+INSERT INTO `admin_operation_log` VALUES (822, 1, 'admin/user-bets/create', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 09:10:46', '2021-01-16 09:10:46');
+INSERT INTO `admin_operation_log` VALUES (823, 1, 'admin/user-bets', 'POST', '127.0.0.1', '{\"order_number\":null,\"bet_sum\":null,\"phase_number\":\"50755257\",\"sum_max\":\"100\",\"sum_min\":\"111\",\"sum_odd\":\"0\",\"sum_even\":\"0\",\"dragon\":\"0\",\"tiger\":\"0\",\"draw\":\"0\",\"before_three_leopard\":\"0\",\"before_three_straight\":\"0\",\"before_three_two_pairs\":\"0\",\"before_three_half_straight\":\"0\",\"before_three_discrete\":\"0\",\"middle_three_leopard\":\"0\",\"middle_three_straight\":\"0\",\"middle_three_two_pairs\":\"0\",\"middle_three_half_straight\":\"0\",\"middle_three_discrete\":\"0\",\"after_three_leopard\":\"0\",\"after_three_straight\":\"0\",\"after_three_two_pairs\":\"0\",\"after_three_half_straight\":\"0\",\"after_three_discrete\":\"0\",\"first_max\":\"0\",\"first_min\":\"0\",\"first_odd\":\"0\",\"first_even\":\"0\",\"first_0\":\"0\",\"first_1\":\"0\",\"first_2\":\"0\",\"first_3\":\"0\",\"first_4\":\"0\",\"first_5\":\"0\",\"first_6\":\"0\",\"first_8\":\"0\",\"first_9\":\"0\",\"second_max\":\"0\",\"second_min\":\"0\",\"second_odd\":\"0\",\"second_even\":\"0\",\"second_0\":\"0\",\"second_1\":\"0\",\"second_2\":\"0\",\"second_3\":\"0\",\"second_4\":\"0\",\"second_5\":\"0\",\"second_6\":\"0\",\"second_8\":\"0\",\"second_9\":\"0\",\"third_max\":\"0\",\"third_min\":\"0\",\"third_odd\":\"0\",\"third_even\":\"0\",\"third_0\":\"0\",\"third_1\":\"0\",\"third_2\":\"0\",\"third_3\":\"0\",\"third_4\":\"0\",\"third_5\":\"0\",\"third_6\":\"0\",\"third_8\":\"0\",\"third_9\":\"0\",\"fourth_max\":\"0\",\"fourth_min\":\"0\",\"fourth_odd\":\"0\",\"fourth_even\":\"0\",\"fourth_0\":\"0\",\"fourth_1\":\"0\",\"fourth_2\":\"0\",\"fourth_3\":\"0\",\"fourth_4\":\"0\",\"fourth_5\":\"0\",\"fourth_6\":\"0\",\"fourth_8\":\"0\",\"fourth_9\":\"0\",\"fifth_max\":\"0\",\"fifth_min\":\"0\",\"fifth_odd\":\"0\",\"fifth_even\":\"0\",\"fifth_0\":\"0\",\"fifth_1\":\"0\",\"fifth_2\":\"0\",\"fifth_3\":\"0\",\"fifth_4\":\"0\",\"fifth_5\":\"0\",\"fifth_6\":\"0\",\"fifth_8\":\"0\",\"fifth_9\":\"0\",\"_token\":\"LdhJ3xMeHOL9x4Mms7YfX6B9xc5BC0gLkDN3pG2L\",\"_previous_\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/user-bets\"}', '2021-01-16 09:10:51', '2021-01-16 09:10:51');
+INSERT INTO `admin_operation_log` VALUES (824, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 09:10:51', '2021-01-16 09:10:51');
+INSERT INTO `admin_operation_log` VALUES (825, 1, 'admin/user-bets', 'GET', '127.0.0.1', '[]', '2021-01-16 10:10:10', '2021-01-16 10:10:10');
+INSERT INTO `admin_operation_log` VALUES (826, 1, 'admin/user-bet-odds', 'GET', '127.0.0.1', '{\"_pjax\":\"#pjax-container\"}', '2021-01-16 10:10:12', '2021-01-16 10:10:12');
 
 -- ----------------------------
 -- Table structure for admin_permissions
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_permissions`;
 CREATE TABLE `admin_permissions`  (
-                                      `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-                                      `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                      `slug` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                      `http_method` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                                      `http_path` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-                                      `created_at` timestamp(0) NULL DEFAULT NULL,
-                                      `updated_at` timestamp(0) NULL DEFAULT NULL,
-                                      PRIMARY KEY (`id`) USING BTREE,
-                                      UNIQUE INDEX `admin_permissions_name_unique`(`name`) USING BTREE,
-                                      UNIQUE INDEX `admin_permissions_slug_unique`(`slug`) USING BTREE
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `http_method` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `http_path` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `admin_permissions_name_unique`(`name`) USING BTREE,
+  UNIQUE INDEX `admin_permissions_slug_unique`(`slug`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -635,11 +927,11 @@ INSERT INTO `admin_permissions` VALUES (5, 'Auth management', 'auth.management',
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_role_menu`;
 CREATE TABLE `admin_role_menu`  (
-                                    `role_id` int(11) NOT NULL,
-                                    `menu_id` int(11) NOT NULL,
-                                    `created_at` timestamp(0) NULL DEFAULT NULL,
-                                    `updated_at` timestamp(0) NULL DEFAULT NULL,
-                                    INDEX `admin_role_menu_role_id_menu_id_index`(`role_id`, `menu_id`) USING BTREE
+  `role_id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  INDEX `admin_role_menu_role_id_menu_id_index`(`role_id`, `menu_id`) USING BTREE
 ) ENGINE = MyISAM CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
@@ -649,17 +941,18 @@ INSERT INTO `admin_role_menu` VALUES (1, 2, NULL, NULL);
 INSERT INTO `admin_role_menu` VALUES (1, 8, NULL, NULL);
 INSERT INTO `admin_role_menu` VALUES (1, 9, NULL, NULL);
 INSERT INTO `admin_role_menu` VALUES (1, 10, NULL, NULL);
+INSERT INTO `admin_role_menu` VALUES (1, 11, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for admin_role_permissions
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_role_permissions`;
 CREATE TABLE `admin_role_permissions`  (
-                                           `role_id` int(11) NOT NULL,
-                                           `permission_id` int(11) NOT NULL,
-                                           `created_at` timestamp(0) NULL DEFAULT NULL,
-                                           `updated_at` timestamp(0) NULL DEFAULT NULL,
-                                           INDEX `admin_role_permissions_role_id_permission_id_index`(`role_id`, `permission_id`) USING BTREE
+  `role_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  INDEX `admin_role_permissions_role_id_permission_id_index`(`role_id`, `permission_id`) USING BTREE
 ) ENGINE = MyISAM CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
@@ -672,11 +965,11 @@ INSERT INTO `admin_role_permissions` VALUES (1, 1, NULL, NULL);
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_role_users`;
 CREATE TABLE `admin_role_users`  (
-                                     `role_id` int(11) NOT NULL,
-                                     `user_id` int(11) NOT NULL,
-                                     `created_at` timestamp(0) NULL DEFAULT NULL,
-                                     `updated_at` timestamp(0) NULL DEFAULT NULL,
-                                     INDEX `admin_role_users_role_id_user_id_index`(`role_id`, `user_id`) USING BTREE
+  `role_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  INDEX `admin_role_users_role_id_user_id_index`(`role_id`, `user_id`) USING BTREE
 ) ENGINE = MyISAM CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
@@ -689,14 +982,14 @@ INSERT INTO `admin_role_users` VALUES (1, 1, NULL, NULL);
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_roles`;
 CREATE TABLE `admin_roles`  (
-                                `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-                                `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                `slug` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                `created_at` timestamp(0) NULL DEFAULT NULL,
-                                `updated_at` timestamp(0) NULL DEFAULT NULL,
-                                PRIMARY KEY (`id`) USING BTREE,
-                                UNIQUE INDEX `admin_roles_name_unique`(`name`) USING BTREE,
-                                UNIQUE INDEX `admin_roles_slug_unique`(`slug`) USING BTREE
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `admin_roles_name_unique`(`name`) USING BTREE,
+  UNIQUE INDEX `admin_roles_slug_unique`(`slug`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -709,11 +1002,11 @@ INSERT INTO `admin_roles` VALUES (1, 'Administrator', 'administrator', '2021-01-
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_user_permissions`;
 CREATE TABLE `admin_user_permissions`  (
-                                           `user_id` int(11) NOT NULL,
-                                           `permission_id` int(11) NOT NULL,
-                                           `created_at` timestamp(0) NULL DEFAULT NULL,
-                                           `updated_at` timestamp(0) NULL DEFAULT NULL,
-                                           INDEX `admin_user_permissions_user_id_permission_id_index`(`user_id`, `permission_id`) USING BTREE
+  `user_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  INDEX `admin_user_permissions_user_id_permission_id_index`(`user_id`, `permission_id`) USING BTREE
 ) ENGINE = MyISAM CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
@@ -721,16 +1014,16 @@ CREATE TABLE `admin_user_permissions`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_users`;
 CREATE TABLE `admin_users`  (
-                                `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-                                `username` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                `password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                `avatar` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                                `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                                `created_at` timestamp(0) NULL DEFAULT NULL,
-                                `updated_at` timestamp(0) NULL DEFAULT NULL,
-                                PRIMARY KEY (`id`) USING BTREE,
-                                UNIQUE INDEX `admin_users_username_unique`(`username`) USING BTREE
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `admin_users_username_unique`(`username`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -743,15 +1036,15 @@ INSERT INTO `admin_users` VALUES (1, 'admin', '$2y$10$uOyKqelJ/cb66/37VnKLzel3Kh
 -- ----------------------------
 DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs`  (
-                                `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-                                `uuid` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                                `failed_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                PRIMARY KEY (`id`) USING BTREE,
-                                UNIQUE INDEX `failed_jobs_uuid_unique`(`uuid`) USING BTREE
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `failed_jobs_uuid_unique`(`uuid`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -759,10 +1052,10 @@ CREATE TABLE `failed_jobs`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations`  (
-                               `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-                               `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                               `batch` int(11) NOT NULL,
-                               PRIMARY KEY (`id`) USING BTREE
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -777,234 +1070,246 @@ INSERT INTO `migrations` VALUES (3, '2019_08_19_000000_create_failed_jobs_table'
 -- ----------------------------
 DROP TABLE IF EXISTS `open_ball`;
 CREATE TABLE `open_ball`  (
-                              `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-                              `phase_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '期数',
-                              `first_ball` int(11) UNSIGNED NOT NULL COMMENT '第一球',
-                              `second_ball` int(11) UNSIGNED NOT NULL COMMENT '第二球',
-                              `third_ball` int(11) UNSIGNED NOT NULL COMMENT '第三球',
-                              `fourth_ball` int(11) UNSIGNED NOT NULL COMMENT '第四球',
-                              `fifth_ball` int(11) UNSIGNED NOT NULL COMMENT '第五球',
-                              `open_method` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0=>算法开奖 1=>正常开奖,2 =>人工开奖',
-                              `created_at` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
-                              `updated_at` timestamp(0) NULL DEFAULT NULL COMMENT '更新时间',
-                              PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `phase_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '期数',
+  `first_ball` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '第一球',
+  `second_ball` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '第二球',
+  `third_ball` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '第三球',
+  `fourth_ball` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '第四球',
+  `fifth_ball` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '第五球',
+  `open_method` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0=>算法开奖 1=>正常开奖,2 =>人工开奖',
+  `current_open_ball_time` int(11) UNSIGNED NOT NULL DEFAULT 300 COMMENT '本期开奖时间 单位秒',
+  `next_open_ball_time` int(11) UNSIGNED NOT NULL DEFAULT 300 COMMENT '下期开奖时间 单位秒',
+  `current_sealing_time` int(11) UNSIGNED NOT NULL DEFAULT 120 COMMENT '本期封盘时间，单位秒',
+  `next_sealing_time` int(11) UNSIGNED NOT NULL DEFAULT 120 COMMENT '下期封盘时间，单位秒',
+  `status` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0=>下注中，1=>封盘中,2=>结束',
+  `start_time` int(11) NOT NULL COMMENT '开盘时间 时间戳',
+  `created_at` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `updated_at` timestamp(0) NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of open_ball
+-- ----------------------------
+INSERT INTO `open_ball` VALUES (1, '50755256', 0, 7, 0, 0, 0, 0, 3000, 3001, 3000, 120, 2, 1610781916, NULL, '2021-01-16 07:02:16');
+INSERT INTO `open_ball` VALUES (2, '50755257', 0, 0, 0, 0, 0, 0, 20000, 300, 20000, 1201, 0, 1610783291, NULL, '2021-01-16 07:06:59');
 
 -- ----------------------------
 -- Table structure for user_bet
 -- ----------------------------
 DROP TABLE IF EXISTS `user_bet`;
 CREATE TABLE `user_bet`  (
-                             `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-                             `phase_number` int(11) UNSIGNED NOT NULL COMMENT '当前多少期',
-                             `order_number` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '每个人下注唯一编号',
-                             `sum_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '总和大',
-                             `sum_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '总和小',
-                             `sum_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '总和奇',
-                             `sum_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '总和偶',
-                             `dragon` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '龙',
-                             `tiger` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '虎',
-                             `draw` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '和',
-                             `first_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球大',
-                             `first_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球小',
-                             `first_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球奇',
-                             `first_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球偶',
-                             `first_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球0',
-                             `first_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球1',
-                             `first_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球2',
-                             `first_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球3',
-                             `first_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球4',
-                             `first_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球5',
-                             `first_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球6',
-                             `first_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球7',
-                             `first_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球8',
-                             `first_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球9',
-                             `second_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球大',
-                             `second_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球小',
-                             `second_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球奇',
-                             `second_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球偶',
-                             `second_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球0',
-                             `second_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球1',
-                             `second_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球2',
-                             `second_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球3',
-                             `second_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球4',
-                             `second_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球5',
-                             `second_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球6',
-                             `second_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球7',
-                             `second_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球8',
-                             `second_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球9',
-                             `third_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球大',
-                             `third_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球小',
-                             `third_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球奇',
-                             `third_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球偶',
-                             `third_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球0',
-                             `third_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球1',
-                             `third_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球2',
-                             `third_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球3',
-                             `third_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球4',
-                             `third_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球5',
-                             `third_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球6',
-                             `third_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球7',
-                             `third_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球8',
-                             `third_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球9',
-                             `fourth_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球大',
-                             `fourth_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球小',
-                             `fourth_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球奇',
-                             `fourth_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球偶',
-                             `fourth_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球0',
-                             `fourth_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球1',
-                             `fourth_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球2',
-                             `fourth_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球3',
-                             `fourth_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球4',
-                             `fourth_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球5',
-                             `fourth_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球6',
-                             `fourth_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球7',
-                             `fourth_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球8',
-                             `fourth_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球9',
-                             `fifth_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球大',
-                             `fifth_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球小',
-                             `fifth_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球奇',
-                             `fifth_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球偶',
-                             `fifth_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球0',
-                             `fifth_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球1',
-                             `fifth_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球2',
-                             `fifth_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球3',
-                             `fifth_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球4',
-                             `fifth_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球5',
-                             `fifth_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球6',
-                             `fifth_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球7',
-                             `fifth_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球8',
-                             `fifth_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球9',
-                             `before_three_leopard` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三豹子',
-                             `before_three_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三顺子',
-                             `before_three_two_pairs` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三对子',
-                             `before_three_half_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三半顺',
-                             `before_three_discrete` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三杂六',
-                             `middle_three_leopard` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三豹子',
-                             `middle_three_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三顺子',
-                             `middle_three_two_pairs` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三对子',
-                             `middle_three_half_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三半顺',
-                             `middle_three_discrete` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三杂六',
-                             `after_three_leopard` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三豹子',
-                             `after_three_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三顺子',
-                             `after_three_two_pairs` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三对子',
-                             `after_three_half_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三半顺',
-                             `after_three_discrete` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三杂六',
-                             `is_open_lottery` tinyint(2) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0 => 未开奖 1=> 开奖',
-                             `bet_sum` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '下注总额',
-                             `win_or_lose` decimal(11, 2) NOT NULL DEFAULT 0.00 COMMENT '盈亏',
-                             `created_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-                             `updated_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-                             PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `phase_number` int(11) UNSIGNED NOT NULL COMMENT '当前多少期',
+  `order_number` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '每个人下注唯一编号',
+  `sum_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '总和大',
+  `sum_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '总和小',
+  `sum_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '总和奇',
+  `sum_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '总和偶',
+  `dragon` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '龙',
+  `tiger` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '虎',
+  `draw` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '和',
+  `first_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球大',
+  `first_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球小',
+  `first_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球奇',
+  `first_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球偶',
+  `first_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球0',
+  `first_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球1',
+  `first_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球2',
+  `first_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球3',
+  `first_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球4',
+  `first_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球5',
+  `first_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球6',
+  `first_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球7',
+  `first_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球8',
+  `first_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '一球9',
+  `second_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球大',
+  `second_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球小',
+  `second_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球奇',
+  `second_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球偶',
+  `second_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球0',
+  `second_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球1',
+  `second_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球2',
+  `second_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球3',
+  `second_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球4',
+  `second_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球5',
+  `second_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球6',
+  `second_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球7',
+  `second_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球8',
+  `second_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二球9',
+  `third_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球大',
+  `third_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球小',
+  `third_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球奇',
+  `third_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球偶',
+  `third_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球0',
+  `third_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球1',
+  `third_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球2',
+  `third_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球3',
+  `third_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球4',
+  `third_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球5',
+  `third_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球6',
+  `third_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球7',
+  `third_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球8',
+  `third_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '三球9',
+  `fourth_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球大',
+  `fourth_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球小',
+  `fourth_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球奇',
+  `fourth_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球偶',
+  `fourth_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球0',
+  `fourth_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球1',
+  `fourth_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球2',
+  `fourth_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球3',
+  `fourth_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球4',
+  `fourth_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球5',
+  `fourth_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球6',
+  `fourth_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球7',
+  `fourth_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球8',
+  `fourth_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '四球9',
+  `fifth_max` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球大',
+  `fifth_min` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球小',
+  `fifth_odd` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球奇',
+  `fifth_even` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球偶',
+  `fifth_0` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球0',
+  `fifth_1` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球1',
+  `fifth_2` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球2',
+  `fifth_3` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球3',
+  `fifth_4` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球4',
+  `fifth_5` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球5',
+  `fifth_6` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球6',
+  `fifth_7` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球7',
+  `fifth_8` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球8',
+  `fifth_9` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '五球9',
+  `before_three_leopard` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三豹子',
+  `before_three_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三顺子',
+  `before_three_two_pairs` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三对子',
+  `before_three_half_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三半顺',
+  `before_three_discrete` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '前三杂六',
+  `middle_three_leopard` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三豹子',
+  `middle_three_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三顺子',
+  `middle_three_two_pairs` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三对子',
+  `middle_three_half_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三半顺',
+  `middle_three_discrete` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '中三杂六',
+  `after_three_leopard` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三豹子',
+  `after_three_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三顺子',
+  `after_three_two_pairs` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三对子',
+  `after_three_half_straight` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三半顺',
+  `after_three_discrete` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '后三杂六',
+  `is_open_lottery` tinyint(2) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0 => 未开奖 1=> 开奖',
+  `bet_sum` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '下注总额',
+  `win_or_lose` decimal(11, 2) NOT NULL DEFAULT 0.00 COMMENT '盈亏',
+  `created_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `updated_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_bet
 -- ----------------------------
-INSERT INTO `user_bet` VALUES (1, 123, '123', 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.00, '2021-01-15 15:51:17', '2021-01-15 15:51:17');
+INSERT INTO `user_bet` VALUES (6, 50755257, '1610788251', 100, 111, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 211, 0.00, '2021-01-16 09:10:51', '2021-01-16 09:10:51');
 
 -- ----------------------------
 -- Table structure for user_bet_odds
 -- ----------------------------
 DROP TABLE IF EXISTS `user_bet_odds`;
 CREATE TABLE `user_bet_odds`  (
-                                  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-                                  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'azxy5' COMMENT '彩种',
-                                  `sum_max` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '总和大',
-                                  `sum_min` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '总和小',
-                                  `sum_odd` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '总和奇',
-                                  `sum_even` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '总和偶',
-                                  `dragon` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '龙',
-                                  `tiger` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '虎',
-                                  `draw` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '和',
-                                  `first_max` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球大',
-                                  `first_min` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球小',
-                                  `first_odd` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球奇',
-                                  `first_even` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球偶',
-                                  `first_0` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球0',
-                                  `first_1` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球1',
-                                  `first_2` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球2',
-                                  `first_3` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球3',
-                                  `first_4` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球4',
-                                  `first_5` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球5',
-                                  `first_6` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球6',
-                                  `first_7` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球7',
-                                  `first_8` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球8',
-                                  `first_9` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球9',
-                                  `second_max` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球大',
-                                  `second_min` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球小',
-                                  `second_odd` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球奇',
-                                  `second_even` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球偶',
-                                  `second_0` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球0',
-                                  `second_1` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球1',
-                                  `second_2` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球2',
-                                  `second_3` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球3',
-                                  `second_4` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球4',
-                                  `second_5` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球5',
-                                  `second_6` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球6',
-                                  `second_7` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球7',
-                                  `second_8` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球8',
-                                  `second_9` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球9',
-                                  `third_max` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球大',
-                                  `third_min` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球小',
-                                  `third_odd` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球奇',
-                                  `third_even` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球偶',
-                                  `third_0` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球0',
-                                  `third_1` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球1',
-                                  `third_2` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球2',
-                                  `third_3` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球3',
-                                  `third_4` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球4',
-                                  `third_5` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球5',
-                                  `third_6` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球6',
-                                  `third_7` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球7',
-                                  `third_8` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球8',
-                                  `third_9` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球9',
-                                  `fourth_max` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球大',
-                                  `fourth_min` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球小',
-                                  `fourth_odd` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球奇',
-                                  `fourth_even` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球偶',
-                                  `fourth_0` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球0',
-                                  `fourth_1` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球1',
-                                  `fourth_2` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球2',
-                                  `fourth_3` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球3',
-                                  `fourth_4` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球4',
-                                  `fourth_5` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球5',
-                                  `fourth_6` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球6',
-                                  `fourth_7` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球7',
-                                  `fourth_8` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球8',
-                                  `fourth_9` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球9',
-                                  `fifth_max` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球大',
-                                  `fifth_min` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球小',
-                                  `fifth_odd` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球奇',
-                                  `fifth_even` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球偶',
-                                  `fifth_0` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球0',
-                                  `fifth_1` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球1',
-                                  `fifth_2` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球2',
-                                  `fifth_3` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球3',
-                                  `fifth_4` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球4',
-                                  `fifth_5` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球5',
-                                  `fifth_6` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球6',
-                                  `fifth_7` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球7',
-                                  `fifth_8` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球8',
-                                  `fifth_9` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球9',
-                                  `before_three_leopard` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '前三豹子',
-                                  `before_three_straight` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '前三顺子',
-                                  `before_three_two_pairs` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '前三对子',
-                                  `before_three_half_straight` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '前三半顺',
-                                  `before_three_discrete` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '前三杂六',
-                                  `middle_three_leopard` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '中三豹子',
-                                  `middle_three_straight` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '中三顺子',
-                                  `middle_three_two_pairs` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '中三对子',
-                                  `middle_three_half_straight` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '中三半顺',
-                                  `middle_three_discrete` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '中三杂六',
-                                  `after_three_leopard` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '后三豹子',
-                                  `after_three_straight` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '后三顺子',
-                                  `after_three_two_pairs` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '后三对子',
-                                  `after_three_half_straight` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '后三半顺',
-                                  `after_three_discrete` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '后三杂六',
-                                  `created_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-                                  `updated_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-                                  PRIMARY KEY (`id`) USING BTREE
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'azxy5' COMMENT '彩种',
+  `sum_max` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '总和大',
+  `sum_min` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '总和小',
+  `sum_odd` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '总和奇',
+  `sum_even` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '总和偶',
+  `dragon` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '龙',
+  `tiger` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '虎',
+  `draw` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '和',
+  `first_max` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球大',
+  `first_min` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球小',
+  `first_odd` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球奇',
+  `first_even` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球偶',
+  `first_0` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球0',
+  `first_1` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球1',
+  `first_2` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球2',
+  `first_3` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球3',
+  `first_4` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球4',
+  `first_5` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球5',
+  `first_6` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球6',
+  `first_7` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球7',
+  `first_8` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球8',
+  `first_9` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '一球9',
+  `second_max` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球大',
+  `second_min` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球小',
+  `second_odd` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球奇',
+  `second_even` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球偶',
+  `second_0` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球0',
+  `second_1` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球1',
+  `second_2` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球2',
+  `second_3` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球3',
+  `second_4` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球4',
+  `second_5` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球5',
+  `second_6` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球6',
+  `second_7` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球7',
+  `second_8` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球8',
+  `second_9` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '二球9',
+  `third_max` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球大',
+  `third_min` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球小',
+  `third_odd` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球奇',
+  `third_even` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球偶',
+  `third_0` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球0',
+  `third_1` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球1',
+  `third_2` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球2',
+  `third_3` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球3',
+  `third_4` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球4',
+  `third_5` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球5',
+  `third_6` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球6',
+  `third_7` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球7',
+  `third_8` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球8',
+  `third_9` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '三球9',
+  `fourth_max` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球大',
+  `fourth_min` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球小',
+  `fourth_odd` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球奇',
+  `fourth_even` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球偶',
+  `fourth_0` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球0',
+  `fourth_1` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球1',
+  `fourth_2` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球2',
+  `fourth_3` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球3',
+  `fourth_4` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球4',
+  `fourth_5` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球5',
+  `fourth_6` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球6',
+  `fourth_7` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球7',
+  `fourth_8` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球8',
+  `fourth_9` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '四球9',
+  `fifth_max` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球大',
+  `fifth_min` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球小',
+  `fifth_odd` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球奇',
+  `fifth_even` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球偶',
+  `fifth_0` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球0',
+  `fifth_1` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球1',
+  `fifth_2` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球2',
+  `fifth_3` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球3',
+  `fifth_4` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球4',
+  `fifth_5` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球5',
+  `fifth_6` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球6',
+  `fifth_7` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球7',
+  `fifth_8` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球8',
+  `fifth_9` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '五球9',
+  `before_three_leopard` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '前三豹子',
+  `before_three_straight` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '前三顺子',
+  `before_three_two_pairs` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '前三对子',
+  `before_three_half_straight` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '前三半顺',
+  `before_three_discrete` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '前三杂六',
+  `middle_three_leopard` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '中三豹子',
+  `middle_three_straight` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '中三顺子',
+  `middle_three_two_pairs` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '中三对子',
+  `middle_three_half_straight` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '中三半顺',
+  `middle_three_discrete` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '中三杂六',
+  `after_three_leopard` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '后三豹子',
+  `after_three_straight` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '后三顺子',
+  `after_three_two_pairs` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '后三对子',
+  `after_three_half_straight` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '后三半顺',
+  `after_three_discrete` decimal(11, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '后三杂六',
+  `created_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `updated_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -1017,16 +1322,16 @@ INSERT INTO `user_bet_odds` VALUES (7, 'azxy5', 1.00, 1.00, 1.00, 1.00, 1.00, 1.
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`  (
-                          `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-                          `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                          `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                          `email_verified_at` timestamp(0) NULL DEFAULT NULL,
-                          `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                          `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                          `created_at` timestamp(0) NULL DEFAULT NULL,
-                          `updated_at` timestamp(0) NULL DEFAULT NULL,
-                          PRIMARY KEY (`id`) USING BTREE,
-                          UNIQUE INDEX `users_email_unique`(`email`) USING BTREE
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp(0) NULL DEFAULT NULL,
+  `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `users_email_unique`(`email`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
