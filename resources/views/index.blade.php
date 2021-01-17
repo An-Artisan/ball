@@ -1525,7 +1525,7 @@
                 $.ajax({
                     type : "post",
                     dataType: "json",
-                    url : "http://127.0.0.1:8000/lotteryMsgApi/lot-single-award",
+                    url : "http://127.0.0.1:8000/api/lotteryMsgApi/lot-single-award",
                     data : {
                         "lotType": checkdataKey,
                         "lotIssue":jsq.checkdata[checkdataKey]
