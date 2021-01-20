@@ -27,7 +27,7 @@ class BetOddsController extends AdminController
         $grid = new Grid(new UserBetOdds());
 
         $grid->column('id', "ID");
-        $grid->column('key', "彩种名称");
+        $grid->column('play_type', "彩种名称");
 
         $grid->column('created_at', "创建时间");
         $grid->column('updated_at', "更新时间");
@@ -56,7 +56,7 @@ class BetOddsController extends AdminController
         $show = new Show(UserBetOdds::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('key', __('Key'));
+        $show->field('play_type', __('Key'));
         $show->field('sum_max', __('Sum max'));
         $show->field('sum_min', __('Sum min'));
         $show->field('sum_odd', __('Sum odd'));

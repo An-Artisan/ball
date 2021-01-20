@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\OpenBall;
 use App\Models\UserBet;
+use App\Models\UserBetOdds;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
@@ -40,6 +41,7 @@ class CreateOpenBall extends Command
      */
     public function handle()
     {
+
         while (true) {
             $this->doRun();
         }
@@ -48,6 +50,7 @@ class CreateOpenBall extends Command
 
     private function doRun()
     {
+
         try {
             /**
              * 首次运行创建
@@ -75,15 +78,16 @@ class CreateOpenBall extends Command
             /**
              * 封盘
              */
-            if ((strtotime($currentBet->start_time) + $currentBet->current_sealing_time) >= time()) {
+            if (($currentBet->start_time + $currentBet->current_sealing_time) <= time()) {
                 $currentBet->status = OpenBall::STATUS_SEALING;
                 $currentBet->save();
                 $currentBet->refresh();
             }
+
             /**
              * 开奖
              */
-            if ((strtotime($currentBet->start_time) + $currentBet->current_open_ball_time) >= time()) {
+            if ((strtotime($currentBet->start_time) + $currentBet->current_open_ball_time) <= time()) {
                 $currentBet->status = OpenBall::STATUS_ENDED;
                 $currentBet->save();
                 $currentBet->refresh();
@@ -94,6 +98,7 @@ class CreateOpenBall extends Command
 //            $this->info('Display this on the screen');
             sleep(1);
         } catch (\Exception $exception) {
+            dd($exception->getMessage());exit;
 //            发送邮件
             Log::debug("创建下期任务失败", ["fail msg" => $exception->getMessage()]);
         }
@@ -112,10 +117,11 @@ class CreateOpenBall extends Command
         $fifths = range(0, 9);
         shuffle($fifths);
         $i = 0;
-        $userBetAll = UserBet::query()->where("phase_number",$currentBet->phase_number)
+        $userBetAll = UserBet::query()->where("play_type","new1")->where("phase_number",$currentBet->phase_number)
             ->where("is_open_lottery",UserBet::NOT_OPEN)->get();
-
-
+        $userBetOdds = UserBetOdds::query()->where("play_type","new1")->first();
+        dd($userBetOdds);exit;
+        dd($userBetAll,$userBetOdds);exit;
 
 
         $rules = [
