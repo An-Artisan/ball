@@ -22,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/getSysTime', [IndexController::class,"getSysTime"]);
+Route::get('/test', [IndexController::class,"test"]);
 
 Route::post('/lotteryMsgApi/lot-single-award', [IndexController::class,"lotSingleAward"]);
 Route::post('/lotteryMsgApi/lot-index-list', [IndexController::class,"lotIndexList"]);

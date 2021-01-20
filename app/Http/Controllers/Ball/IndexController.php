@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Ball;
 
+use App\Console\Commands\CreateOpenBall;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserBet;
@@ -13,6 +14,10 @@ class IndexController extends Controller
 {
 
 
+    public function test() {
+        $create = new CreateOpenBall();
+        $create->handle();
+    }
     public function success()
     {
 

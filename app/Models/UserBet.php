@@ -12,13 +12,15 @@ class UserBet extends Model
 
     protected $table = 'user_bet';
     protected $primaryKey = 'id';
-
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
         $this->timestamps = true;
     }
-
+    // 未开奖
+    const NOT_OPEN = 0;
+    // 已开奖
+    const ALREADY_OPEN = 1;
     const NAMES = [
         "sum_max" => "总和大", "sum_min" => "总和小", "sum_odd" => "总和奇", "sum_even" => "总和偶", "dragon" => "龙", "tiger" => "虎", "draw" => "和",
         "first_max" => "一球大", "first_min" => "一球小", "first_odd" => "一球单", "first_even" => "一球双", "first_0" => "一球0", "first_1" => "一球1", "first_2" => "一球2",

@@ -241,18 +241,24 @@ class BetController extends AdminController
             $form->order_number = time();
         });
 
-        $form->column(1 / 3, function ($form) use ($bet) {
+        $form->column(1 / 4, function ($form) use ($bet) {
             $end_time = $bet->start_time + $bet->current_open_ball_time - time();
             $form->bet_end_countdown($end_time);
         });
 
-        $form->column(1 / 3, function ($form) use ($bet) {
+        $form->column(1 / 4, function ($form) use ($bet) {
             $sealing_time = $bet->start_time + $bet->current_sealing_time - time();
             $form->bet_sealing_countdown($sealing_time);
         });
 
-        $form->column(1 / 3, function ($form) use ($bet) {
-            $form->select('phase_number', "当前期数")->options([$bet->phase_number => $bet->phase_number])->default($bet->phase_number)->required()->setWidth(3, 2);
+        $form->column(1 / 4, function ($form) use ($bet) {
+            $form->select('phase_number', "当前期数")->options([$bet->phase_number => $bet->phase_number])->default($bet->phase_number)->required()->readonly()->setWidth(4, 3);
+//            $form->number('phase_number', "当前期数")->default($bet->phase_number)->required()->setWidth(3, 2);
+            $form->divider();
+        });
+
+        $form->column(1 / 4, function ($form) use ($bet) {
+            $form->select('play_type', "玩法彩种")->options([$bet->play_type => $bet->play_type])->default($bet->play_type)->required()->readonly()->setWidth(4, 3);
 //            $form->number('phase_number', "当前期数")->default($bet->phase_number)->required()->setWidth(3, 2);
             $form->divider();
         });

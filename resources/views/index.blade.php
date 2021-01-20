@@ -3,7 +3,7 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>88开奖网</title>
+    <title>开奖网</title>
     <!-- 基础css -->
     <script src="./resource/base_top.js"></script><link href="./resource/bootstrap.min.css" rel="stylesheet"><link href="./resource/reset.css" rel="stylesheet"><link href="./resource/font-awesome.css" rel="stylesheet"><link href="./resource/animate.css" rel="stylesheet"><link href="./resource/style.css" rel="stylesheet"><link href="./resource/sweetalert.css" rel="stylesheet"><link href="./resource/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./resource/index.css">
