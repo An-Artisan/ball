@@ -1,65 +1,21 @@
 <?php
 
-function rules($array)
-{
-//    $rules = [
-//        // 总和大，总和小，总和奇，总和偶，龙，虎，和，
-//        "sum_max","sum_min","sum_odd","sum_even","dragon","tiger","draw",
-//        // 第一球大，第一球小，第一球奇，第一球偶，第一球为1，第一球为2，第一球为3，第一球为4，第一球为5，第一球为6，第一球为7，第一球为8，第一球为9，
-//        "first_max","first_min","first_odd","first_even","first_0","first_2","first_3","first_4","first_5","first_6","first_7","first_8","first_9",
-//        // 第二球大，第二球小，第二球奇，第二球偶，第二球为1，第二球为2，第二球为3，第二球为4，第二球为5，第二球为6，第二球为7，第二球为8，第二球为9，
-//        "second_max","second_min","second_odd","second_even","second_0","second_2","second_3","second_4","second_5","second_6","second_7","second_8","second_9",
-//        // 第三球大，第三球小，第三球奇，第三球偶，第三球为1，第三球为2，第三球为3，第三球为4，第三球为5，第三球为6，第三球为7，第三球为8，第三球为9，
-//        "third_max","third_min","third_odd","third_even","third_0","third_2","third_3","third_4","third_5","third_6","third_7","third_8","third_9",
-//        // 第四球大，第四球小，第四球奇，第四球偶，第四球为1，第四球为2，第四球为3，第四球为4，第四球为5，第四球为6，第四球为7，第四球为8，第四球为9，
-//        "fourth_max","fourth_min","fourth_odd","fourth_even","fourth_0","fourth_2","fourth_3","fourth_4","fourth_5","fourth_6","fourth_7","fourth_8","fourth_9",
-//        // 第五球大，第五球小，第五球奇，第五球偶，第五球为1，第五球为2，第五球为3，第五球为4，第五球为5，第五球为6，第五球为7，第五球为8，第五球为9，
-//        "fifth_max","fifth_min","fifth_odd","fifth_even","fifth_0","fifth_2","fifth_3","fifth_4","fifth_5","fifth_6","fifth_7","fifth_8","fifth_9",
-//        // 前三豹子，前三顺子，前三对子，前三半顺，前三杂六
-//        "before_three_leopard","before_three_straight","before_three_two_pairs","before_three_half_straight","before_three_discrete",
-//        // 中三豹子，中三顺子，中三对子，中三半顺，中三杂六
-//        "middle_three_leopard","middle_three_straight","middle_three_two_pairs","middle_three_half_straight","middle_three_discrete",
-//        // 后三豹子，后三顺子，后三对子，后三半顺，后三杂六
-//        "after_three_leopard","after_three_straight","after_three_two_pairs","after_three_half_straight","after_three_discrete",
-//    ];
-    $rules = [
-// 总和大，总和小，总和奇，总和偶，龙，虎，和，
-        "sum_max" => 1, "sum_min" => 2, "sum_odd" => 3, "sum_even" => 4, "dragon" => 5, "tiger" => 6, "draw" => 7,
-// 第一球大，第一球小，第一球奇，第一球偶，第一球为1，第一球为2，第一球为3，第一球为4，第一球为5，第一球为6，第一球为7，第一球为8，第一球为9，
-        "first_max" => 8, "first_min" => 9, "first_odd" => 10, "first_even" => 11, "first_0" => 12, "first_2" => 13, "first_3" => 14, "first_4" => 15, "first_5" => 16, "first_6" => 17, "first_7" => 18, "first_8" => 19, "first_9" => 20,
-// 第二球大，第二球小，第二球奇，第二球偶，第二球为1，第二球为2，第二球为3，第二球为4，第二球为5，第二球为6，第二球为7，第二球为8，第二球为9，
-        "second_max" => 21, "second_min" => 22, "second_odd" => 23, "second_even" => 24, "second_0" => 25, "second_2" => 26, "second_3" => 27, "second_4" => 28, "second_5" => 29, "second_6" => 30, "second_7" => 31, "second_8" => 32, "second_9" => 33,
-// 第三球大，第三球小，第三球奇，第三球偶，第三球为1，第三球为2，第三球为3，第三球为4，第三球为5，第三球为6，第三球为7，第三球为8，第三球为9，
-        "third_max" => 34, "third_min" => 35, "third_odd" => 36, "third_even" => 37, "third_0" => 38, "third_2" => 39, "third_3" => 40, "third_4" => 41, "third_5" => 42, "third_6" => 43, "third_7" => 44, "third_8" => 45, "third_9" => 46,
-// 第四球大，第四球小，第四球奇，第四球偶，第四球为1，第四球为2，第四球为3，第四球为4，第四球为5，第四球为6，第四球为7，第四球为8，第四球为9，
-        "fourth_max" => 47, "fourth_min" => 48, "fourth_odd" => 49, "fourth_even" => 50, "fourth_0" => 51, "fourth_2" => 52, "fourth_3" => 53, "fourth_4" => 54, "fourth_5" => 55, "fourth_6" => 56, "fourth_7" => 57, "fourth_8" => 58, "fourth_9" => 59,
-// 第五球大，第五球小，第五球奇，第五球偶，第五球为1，第五球为2，第五球为3，第五球为4，第五球为5，第五球为6，第五球为7，第五球为8，第五球为9，
-        "fifth_max" => 60, "fifth_min" => 61, "fifth_odd" => 62, "fifth_even" => 63, "fifth_0" => 64, "fifth_2" => 65, "fifth_3" => 66, "fifth_4" => 67, "fifth_5" => 68, "fifth_6" => 69, "fifth_7" => 70, "fifth_8" => 71, "fifth_9" => 72,
-// 前三豹子，前三顺子，前三对子，前三半顺，前三杂六
-        "before_three_leopard" => 73, "before_three_straight" => 74, "before_three_two_pairs" => 75, "before_three_half_straight" => 76, "before_three_discrete" => 77,
-// 中三豹子，中三顺子，中三对子，中三半顺，中三杂六
-        "middle_three_leopard" => 78, "middle_three_straight" => 79, "middle_three_two_pairs" => 80, "middle_three_half_straight" => 81, "middle_three_discrete" => 82,
-// 后三豹子，后三顺子，后三对子，后三半顺，后三杂六
-        "after_three_leopard" => 83, "after_three_straight" => 84, "after_three_two_pairs" => 85, "after_three_half_straight" => 86, "after_three_discrete" => 87,
-    ];
 
-
-//    $rules = [
-//        "first_odd" => 1000, "first_even" => 200
-//    ];
-    return money($array, $rules);
-}
 
 //  当前球的所有规则计算的亏损
 function money($balls, $rules)
 {
-    $money = 0;
+    $money = 0.00;
     foreach ($rules as $func => $value) {
+
+        if ($value['bet_price'] == 0) {
+            continue;
+        }
         $result = $func($balls);
-        if ($result == 1) {
-            $money -= $value;
-        } else if ($result == 0) {
-            $money += $value;
+        if ($result === 1) {
+            $money =  bcsub($money,bcsub($value["bet_odds_price"],$value['bet_price'],2),2) ;
+        } else if ($result === 0) {
+            $money = bcadd($value['bet_price'],$money,2);
         }
     }
     return $money;
@@ -1022,7 +978,7 @@ function after_three_discrete($array)
 
 ////$data = [["ball" => [1,2,3,4,6],"money" => 800],["ball" => [0,0,0,0,0],"money" => 900],["ball" => [2,2,3,4,5],"money" => 900],["ball" => [1,9,3,4,5],"money" => 900],["ball" => [1,9,3,4,9],"money" => 900]];
 //$last_ages = array_column($data, 'money');
-//array_multisort($last_ages, SORcomposer.jsonT_DESC, $data,SORT_NATURAL);
+//array_multisort($last_ages, SORT_DESC, $data,SORT_NATURAL);
 //var_dump($data[0]);
 //exit;
 

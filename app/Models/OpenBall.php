@@ -17,6 +17,7 @@ class OpenBall extends Model
     // 已结束
     const STATUS_ENDED = 2;
 
+    const SUM_PHASE = 240;
     protected $table = 'open_ball';
     protected $primaryKey = 'id';
 

@@ -196,8 +196,7 @@ class BetController extends AdminController
         $form->hidden('order_number');
         $form->hidden('bet_sum');
         $bet = OpenBall::query()->where('status', "!=", 2)->get()->first();
-
-//保存前回调
+        //保存前回调
         $form->saving(function (Form $form) use ($bet) {
             $betArray = [
                 $form->sum_max, $form->sum_min, $form->sum_odd, $form->sum_even, $form->dragon, $form->tiger, $form->draw,
