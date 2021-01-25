@@ -9,6 +9,7 @@ use App\Models\UserBet;
 use App\Models\UserBetOdds;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class IndexController extends Controller
 {
@@ -40,52 +41,37 @@ class IndexController extends Controller
     {
 
 
+//        Cache::put("test","2",5);
+//        dd(Cache::get("test"));exit;
         /**
          *  15 广东11选5
          * 51 文莱幸运5
          * 31 澳洲幸运5
+         * 68 极速11选5
          */
 //        https://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=31
 //        https://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=51
 //        https://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=15
+//        https://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=68
 //
 
-        $azxy5Count = 1;
-        $azxy5Response = self::azxy5($azxy5Count);
+
+
+        $azxy5Count = $wlxy5Count = $gd11Check5Count = 1;
+        $azxy5Response = self::request163KKCom($azxy5Count,31);
+        $wlxy5Response = self::request163KKCom($wlxy5Count,51);
+        $gd11Check5Response = self::request163KKCom($gd11Check5Count,15);
         $time = time();
-        if ($azxy5Response === false) {
-            return response()->json([]);
-        }
-        $azxy5Content = $azxy5Response->getBody()->getContents();
-        $azxy5Content = json_decode($azxy5Content, true);
-        $azxy5Result = $azxy5Content['result'];
-        $azxy5OpenResult = json_decode($azxy5Result['property'], true);
+        $azxy5Data = self::responseDataPackage($time, $azxy5Response, "澳洲幸运5", "azxy5");
+        $wlxy5Data = self::responseDataPackage($time, $wlxy5Response, "文莱幸运5", "wlxy5");
+        $gd11Check5Data = self::responseDataPackage($time, $gd11Check5Response, "广东11选5", "gd11check5");
+
         $data = ["code" => 0, "errorMessage" => "查询成功", "pageAction" => null, "token" => null,
             "result" => ["pkLotList" => [], "sscLotList" =>
                 [
-                    [
-                        "expect" => $azxy5Result["sgameperiod"],
-                        "num1Val" => $azxy5Result['iopennum1'],
-                        "num2Val" => $azxy5Result['iopennum2'],
-                        "num3Val" => $azxy5Result['iopennum3'],
-                        "num4Val" => $azxy5Result['iopennum4'],
-                        "num5Val" => $azxy5Result['iopennum5'],
-                        "isSumBigSmallVal" => $azxy5OpenResult['sumBigSmall'],
-                        "isSumSingleDoubleVal" => $azxy5OpenResult['sumSingleDouble'],
-                        "isSumDragonTigerVal" => $azxy5OpenResult['dragonTiger'],
-                        "beforeThreeVal" => $azxy5OpenResult['topThree'],
-                        "middleThreeVal" => $azxy5OpenResult['middleThree'],
-                        "afterThreeVal" => $azxy5OpenResult['tailThree'],
-                        "lotName" => "澳洲幸运5",
-                        "paramName" => "azxy5",
-                        "openType" => 1,
-                        "nextOpentime" => date('Y-m-d H:i:s',$time  + ceil($azxy5Result['nextOpenTime'] / 1000)),
-                        "nextIssue" => $azxy5Result['nextGamePeriod'],
-                        "startTime" => $azxy5Result['drealopen'],
-                        "totalCount" => $azxy5Result['alreadyOpenedPeriod'] + $azxy5Result['remainPeriod'],
-                        "openCount" => $azxy5Result['alreadyOpenedPeriod'],
-                        "lotIcon" => "https://lottery-20190422.oss-cn-hongkong.aliyuncs.com/lottery_icon/azxy5.png"
-                    ]
+                    $azxy5Data,
+                    $wlxy5Data,
+                    $gd11Check5Data
                 ]
             ]];
 
@@ -94,37 +80,57 @@ class IndexController extends Controller
     }
 
 
-    private  function wlxy5(int &$count) {
-
-        if ($count === 4) {
-            return false;
+    private function responseDataPackage($time, $response, $lotName, $paramName)
+    {
+        if ($response === false) {
+            $data = [];
+        } else {
+            $content = json_decode($response, true);
+            $result = $content['result'];
+            $openResult = json_decode($result['property'], true);
+            $data = [
+                "expect" => $result["sgameperiod"],
+                "num1Val" => $result['iopennum1'],
+                "num2Val" => $result['iopennum2'],
+                "num3Val" => $result['iopennum3'],
+                "num4Val" => $result['iopennum4'],
+                "num5Val" => $result['iopennum5'],
+                "isSumBigSmallVal" => $openResult['sumBigSmall'],
+                "isSumSingleDoubleVal" => $openResult['sumSingleDouble'],
+                "isSumDragonTigerVal" => $openResult['dragonTiger'],
+                "beforeThreeVal" => $openResult['topThree'],
+                "middleThreeVal" => $openResult['middleThree'],
+                "afterThreeVal" => $openResult['tailThree'],
+                "lotName" => $lotName,
+                "paramName" => $paramName,
+                "openType" => 1,
+                "nextOpentime" => date('Y-m-d H:i:s', $time + ceil($result['nextOpenTime'] / 1000)),
+                "nextIssue" => $result['nextGamePeriod'],
+                "startTime" => $result['drealopen'],
+                "totalCount" => $result['alreadyOpenedPeriod'] + $result['remainPeriod'],
+                "openCount" => $result['alreadyOpenedPeriod'],
+                "lotIcon" => "https://lottery-20190422.oss-cn-hongkong.aliyuncs.com/lottery_icon/azxy5.png"
+            ];
         }
-        $url = "http://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=51";
-        try {
-            $http = new \GuzzleHttp\Client;
-            $response = $http->get($url);
-            return $response;
-        } catch (\Exception $e) {
-            sleep(1);
-            $count ++;
-            return self::azxy5($count);
-        }
+        return $data;
     }
 
-    private  function azxy5(int &$count) {
+
+    private function request163KKCom($count,$iGameId)
+    {
 
         if ($count === 4) {
             return false;
         }
-        $url = "http://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=31";
+        $url = "http://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId={$iGameId}";
         try {
             $http = new \GuzzleHttp\Client;
             $response = $http->get($url);
-            return $response;
+            return $response->getBody()->getContents();
         } catch (\Exception $e) {
             sleep(1);
-            $count ++;
-           return self::azxy5($count);
+            $count++;
+            return self::request163KKCom($count,$iGameId);
         }
     }
 
