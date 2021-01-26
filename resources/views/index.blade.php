@@ -1403,7 +1403,6 @@
                 var key = $(this).attr("data-id");
                 var issueValue = $(this).attr("data-issue");
                 var endValue = $(this).attr("data-endtime");
-                //console.log(key+" ==初始化数据== "+issueValue+"  ===时间= "+endValue);
                 //添加计时元素
                 if (typeof (jsq.enddata[key]) == 'undefined') {
                     jsq.addEnd(key, endValue);
@@ -1509,7 +1508,6 @@
             $.ajax({url: 'http://127.0.0.1:8000/api/getSysTime',data: {},type: "get",dataType: "json",async : false, //同步
                 success: function(data) {
                     var resData = eval(data);
-                    //console.log("=== "+resData.datetime);
                     jsq.netNowTime= new Date(resData.datetime.toString().replace(/-/g, '/'));
                 },
                 error:function(error) {
@@ -1518,9 +1516,7 @@
             });
         },
         renewLot: function () {
-            console.log(jsq.checkdata)
             for (var checkdataKey in jsq.checkdata) {
-                console.log(checkdataKey+"   ==   "+jsq.checkdata[checkdataKey]);
                 //return;
                 $.ajax({
                     type : "post",
@@ -1532,13 +1528,17 @@
                     },
                     async : true,
                     success:function(data) {
-                        console.log(data)
                         if(data.code == 0){
+
+
                             var _lotList = data.result;
                             //使用返回来的参数 而不使用循环中的checkdataKey 可以防止在异步请求中导致ID错位替换
                             var _showDivId = data.result[0].paramName;
-                            console.log(_lotList);
+                            delete jsq.enddata[_showDivId];
+                            delete jsq.issuedata[_showDivId];
+                            delete jsq.checkdata[_showDivId];
                             var _str = '';
+
                             $.each(_lotList,function(item1,mapList) {
                                 if(mapList.openType == 1 || mapList.openType == '1'){
                                     _str ='<div class="rowbox1"><div class="imgheadl"><img src="'+mapList.lotIcon+'" alt="彩种图标"></div><div class="inforr">'
@@ -1547,7 +1547,7 @@
                                         +'<div class="opentyle openShow remain-time" style="display: inline-block;" data-id="'+mapList.paramName+'" data-issue="'+mapList.nextIssue+'" data-endtime="'+mapList.nextOpentime+'">'
                                         +'<span class="countdownTime">00分00秒</span></div></div></div>'
                                         +'<div class="rowbox2"><ul>'
-                                        +'<li class="newestAwardNumLi clNum_ssc gusessNum_ssc" style="margin-left: 5px;"><span class="newestAwardNumSpan numColor">'+mapList.num1Val+'</span></li>'
+                                        +'<li class="newestAwardNumLi clNum_ssc gusessNum_ssc"  style="margin-left: 5px;"><span class="newestAwardNumSpan numColor">'+mapList.num1Val+'</span></li>'
                                         +'<li class="newestAwardNumLi clNum_ssc gusessNum_ssc"><span class="newestAwardNumSpan numColor">'+mapList.num2Val+'</span></li>'
                                         +'<li class="newestAwardNumLi clNum_ssc gusessNum_ssc"><span class="newestAwardNumSpan numColor">'+mapList.num3Val+'</span></li>'
                                         +'<li class="newestAwardNumLi clNum_ssc gusessNum_ssc"><span class="newestAwardNumSpan numColor">'+mapList.num4Val+'</span></li>'
@@ -1578,10 +1578,8 @@
                                 }
                             });
                             //更新页面展示
-                            console.log(_showDivId)
                             $('#'+_showDivId).find('.cztypelt').html(_str);
-                            //删除元素方法
-                            //console.log("删除元素  "+checkdataKey);
+
                             setTimeout(function(){
                                 delete jsq.enddata[_showDivId];
                                 delete jsq.issuedata[_showDivId];

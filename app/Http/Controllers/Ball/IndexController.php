@@ -10,6 +10,7 @@ use App\Models\UserBetOdds;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class IndexController extends Controller
 {
@@ -132,6 +133,7 @@ class IndexController extends Controller
                  * 这里是毫秒，需要除以1000
                  */
                 "nextOpentime" => date('Y-m-d H:i:s', $time + ceil($result['nextOpenTime'] / 1000)),
+//                "nextOpentime" => date('Y-m-d H:i:s', $time + 10),
                 "nextIssue" => $result['nextGamePeriod'],
                 "startTime" => $result['drealopen'],
                 "totalCount" => $result['alreadyOpenedPeriod'] + $result['remainPeriod'],
@@ -166,37 +168,56 @@ class IndexController extends Controller
     public function lotSingleAward(Request $request)
     {
         $type = $request->get('lotType');
+        $lotIssue = $request->get('lotIssue');
         if (!in_array($type, array_keys(self::PLAY_TYPE_LIST))) {
-            return response()->json(["code" => 500, "message" => "暂不支持该彩种查询！"]);
+            $data = ["code" => 304,"errorMessage" => "暂未查询成功","result" => null,"pageAction" => null,"token" => null];
+            return response()->json($data);
         }
-
-        /**
-         * 其他彩种
-         */
+//
+//        /**
+//         * 其他彩种
+//         */
         if ($type != self::CUSTOMER_FIRST) {
-            $data = self::apiOpenLucky($type);
+            sleep(2);
+            $data = self::apiOpenLucky($type, $lotIssue);
             if ($data === false) {
-                return response()->json(["code" => 500, "message" => "查询失败，服务器内部错误！"]);
+                $data = ["code" => 304,"errorMessage" => "暂未查询成功","result" => null,"pageAction" => null,"token" => null];
+                return response()->json($data);
             }
         } else { // 自定义彩种
             $data = [];
         }
+//        $data = ["code" => 0, "errorMessage" => "查询成功", "result" => [
+//            [
+//                "expect" => "000001", "num1Val" =>  "1", "num2Val" => "2",
+//                "num3Val" => "3", "num4Val" => "4", "num5Val" => "5",
+//                "numSum" => "15", "isSumBigSmallVal" => "小", "isSumSingleDoubleVal" => "单",
+//                "isSumDragonTigerVal" => "虎", "beforeThreeVal" => "顺子", "middleThreeVal" => "顺子",
+//                "afterThreeVal" => "顺子", "lotName" => self::PLAY_TYPE_LIST[$type], "paramName" => $type, "openType" => 1,
+//                "nextIssue" => "000002", "nextOpentime" => date('Y-m-d H:i:s', time() + 10),
+//                "totalCount" => "120", "openCount" => "20", "lotIcon" => "https://lottery-20190422.oss-cn-hongkong.aliyuncs.com/lottery_icon/azxy1.png"
+//            ]
+//        ],
+//            "pageAction" => null, "token" => null];
+
         return response()->json($data);
     }
 
     private
-    function apiOpenLucky($type)
+    function apiOpenLucky($type, $lotIssue)
     {
+
         $response = self::request163KKCom(self::PLAY_TYPE_GAME_IDS[$type]);
         if ($response === false) {
+            Log::info("开奖查询接口调用三次失败", ["play_type" => $type, "lotIssue" => $lotIssue]);
             return false;
         } else {
             $content = json_decode($response, true);
             $result = $content['result'];
             $openResult = json_decode($result['property'], true);
-            if ($result["sgameperiod"] == Cache::get($type)) {
-                sleep(2);
-                return self::apiOpenLucky($type);
+            if ($result["sgameperiod"] == $lotIssue) {
+                Log::info("开奖查询期数相同", ["play_type" => $type, "data" => $result, "lotIssue" => $lotIssue]);
+                return false;
             }
 
             $numSum = $result['iopennum1'] + $result['iopennum2'] + $result['iopennum3'] + $result['iopennum4'] + $result['iopennum5'];
@@ -212,7 +233,6 @@ class IndexController extends Controller
                 ]
             ],
                 "pageAction" => null, "token" => null];
-            Cache::put($type,$result["sgameperiod"]);
             return $data;
         }
     }
