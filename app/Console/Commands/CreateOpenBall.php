@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\OpenBall;
 use App\Models\UserBet;
 use App\Models\UserBetOdds;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
@@ -42,6 +43,7 @@ class CreateOpenBall extends Command
     public function handle()
     {
 
+
         while (true) {
             $this->doRun();
         }
@@ -58,16 +60,19 @@ class CreateOpenBall extends Command
             if (OpenBall::query()->where("status", "!=", OpenBall::STATUS_ENDED)->count() == 0) {
                 $lastBet = OpenBall::query()->orderBy("id", "desc")->get()->first();
                 $data = ["play_type" => "new1", "first_ball" => 0, "second_ball" => 0, "third_ball" => 0, "fourth_ball" => 0, "fifth_ball" => 0,
-                    "open_method" => 0, "current_open_ball_time" => 300, "next_open_ball_time" => 300, "current_sealing_time" => 120, "next_sealing_time" => 120,
-                    "status" => 0, "start_time" => time(), "current_phase" => 1, "win_or_lose" => 0.00];
+                    "open_method" => 0, "current_open_ball_time" => OpenBall::CURRENT_OPEN_BALL_TIME, "next_open_ball_time" => OpenBall::NEXT_OPEN_BALL_TIME,
+                    "current_sealing_time" => OpenBall::CURRENT_SEALING_TIME, "next_sealing_time" => OpenBall::NEXT_SEALING_TIME,"status" => OpenBall::STATUS_BETTING,
+                    "start_time" => time(),  "win_or_lose" => 0.00,"created_at" => Carbon::now(),"updated_at" => Carbon::now()];
                 /**
                  * 数据库没有数据
                  */
                 if (!$lastBet) {
                     $data['phase_number'] = "10000000";
+                    $data['current_phase'] = 1;
 
                 } else {
-                    $data['phase_number'] = (int)$lastBet->phase_number + 1;
+                    $data['phase_number'] = (int) $lastBet->phase_number + 1;
+                    $data['current_phase'] = (int) $lastBet->current_phase + 1;
                 }
                 $result = OpenBall::query()->insert($data);
                 if (!$result) {
@@ -106,12 +111,14 @@ class CreateOpenBall extends Command
                 $currentBet->third_ball = $ball[2];
                 $currentBet->fourth_ball = $ball[3];
                 $currentBet->fifth_ball = $ball[4];
-                $currentBet->win_or_lose = $ball['money'];
+//                $currentBet->win_or_lose = $ball['money'];
                 $currentBet->save();
                 $this->createNextBall($currentBet);
                 $this->userBetSettle($ball, $userBetAll, $userBetOdds, $currentBet);
+                $this->info("任务运行成功");
             }
         } catch (\Exception $exception) {
+            $this->info("任务运行失败");
             Log::debug("任务运行失败", ["fail msg" => $exception->getMessage()]);
         }
         sleep(1);
@@ -123,13 +130,14 @@ class CreateOpenBall extends Command
         $userBetOdds = $userBetOddsObject->toArray();
         unset($userBetOdds['id'], $userBetOdds['play_type'], $userBetOdds['created_at'], $userBetOdds['updated_at']);
         $rules = [];
-        $allWinOrLosePrice = '0.00';
+        $allWinOrLosePrice = $sumBetPrice = '0.00';
         foreach ($userBetOdds as $key => $value) {
             $rules[$key] = ["bet_price" => 0, "bet_odds_price" => 0];
         }
         foreach ($userBetAllObject as $item) {
             $itemArray = $item->toArray();
             foreach ($itemArray as $key => $value) {
+                $sumBetPrice = bcmul((string) $sumBetPrice, (string) $value, 2);
                 if (array_key_exists($key, $userBetOdds)) {
                     $rules[$key]["bet_price"] = $value;
                     $rules[$key]["bet_odds_price"] = bcmul((string) $value, (string) $userBetOdds[$key], 2);
@@ -143,6 +151,7 @@ class CreateOpenBall extends Command
             $item->is_open_lottery = UserBet::ALREADY_OPEN;
             $item->save();
         }
+        $currentBet->sum_bet_price = intval($sumBetPrice);
         $currentBet->win_or_lose = $allWinOrLosePrice;
         $currentBet->save();
 
@@ -156,8 +165,8 @@ class CreateOpenBall extends Command
         }
         $data = ["play_type" => "new1", "phase_number" => $currentBet->phase_number + 1, "first_ball" => 0, "second_ball" => 0, "third_ball" => 0,
             "fourth_ball" => 0, "fifth_ball" => 0, "open_method" => 0, "current_open_ball_time" => $currentBet->next_open_ball_time,
-            "next_open_ball_time" => 300, "current_sealing_time" => $currentBet->next_sealing_time, "next_sealing_time" => 120,
-            "status" => 0, "start_time" => time(), "current_phase" => $current_phase, "win_or_lose" => 0.00];
+            "next_open_ball_time" => OpenBall::NEXT_OPEN_BALL_TIME, "current_sealing_time" => $currentBet->next_sealing_time, "next_sealing_time" => OpenBall::NEXT_SEALING_TIME,
+            "status" => OpenBall::STATUS_BETTING, "start_time" => time(), "current_phase" => $current_phase, "win_or_lose" => 0.00,"created_at" => Carbon::now(),"updated_at" => Carbon::now()];
         $result = OpenBall::query()->insert($data);
         if (!$result) {
             throw new \Exception("下期期任务创建失败");
@@ -239,7 +248,7 @@ class CreateOpenBall extends Command
                 foreach ($thirds as $third) {
                     foreach ($fourths as $fourth) {
                         foreach ($fifths as $fifth) {
-                            $data[$i]["id"] = rand(1000, 999999);
+                            $data[$i]["id"] = random_int(1000, 999999);
                             $data[$i]['ball'] = [$first, $second, $third, $fourth, $fifth];
                             $data[$i]["money"] = money($data[$i]['ball'], $rules);
                             $i++;

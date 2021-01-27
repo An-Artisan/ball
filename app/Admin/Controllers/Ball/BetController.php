@@ -210,6 +210,9 @@ class BetController extends AdminController
                 $form->fourth_3, $form->fourth_4, $form->fourth_5, $form->fourth_6, $form->fourth_7, $form->fourth_8, $form->fourth_9,
                 $form->fifth_max, $form->fifth_min, $form->fifth_odd, $form->fifth_even, $form->fifth_0, $form->fifth_1, $form->fifth_2,
                 $form->fifth_3, $form->fifth_4, $form->fifth_5, $form->fifth_6, $form->fifth_7, $form->fifth_8, $form->fifth_9,
+                $form->before_three_leopard,$form->before_three_straight,$form->before_three_two_pairs,$form->before_three_half_straight,$form->before_three_discrete,
+                $form->middle_three_leopard,$form->middle_three_straight,$form->middle_three_two_pairs,$form->middle_three_half_straight,$form->middle_three_discrete,
+                $form->after_three_leopard,$form->after_three_straight,$form->after_three_two_pairs,$form->after_three_half_straight,$form->after_three_discrete,
             ];
             foreach ($betArray as $item) {
                 if ($item < 0) {

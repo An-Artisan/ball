@@ -30,13 +30,16 @@ class OpenBallController extends AdminController
 
         $grid->column('id', "ID");
         $grid->column('phase_number', "本期期号");
+        $grid->column('current_phase',"当前期数");
         $grid->column('play_type', "当前彩种");
+        $grid->column('sum_bet_price', "下注总额");
+        $grid->column('win_or_lose', "该期盈亏");
         $grid->column('first_ball', "第一球")->editable('select',OpenBall::ALL_BALL);
         $grid->column('second_ball', "第二球")->editable('select', OpenBall::ALL_BALL);
         $grid->column('third_ball', "第三球")->editable('select', OpenBall::ALL_BALL);
         $grid->column('fourth_ball', "第四球")->editable('select',OpenBall::ALL_BALL);
+        $grid->column('fifth_ball', "第五球")->editable('select',OpenBall::ALL_BALL);
         $grid->column('open_method', "开奖方式")->editable('select', OpenBall::OPEN_METHOD);
-        $grid->column('current_phase',"当前期数");
         $grid->column('current_open_ball_time', "本期开奖周期（单位：秒）");
         $grid->column('current_sealing_time', "本期封盘时间（单位：秒）");
         $grid->column('next_open_ball_time', "下期开奖周期（单位：秒）")->editable();
