@@ -91,6 +91,12 @@ class OpenBall extends Model
         self::CUSTOMER_FIRST => self::CUSTOMER_FIRST_CN,
     ];
 
+    const PLAY_TYPE_ICON_LIST = [
+        self::WLXY5 => "http://127.0.0.1:8000/images/wlxy5.png",
+        self::AZXY5 => "http://127.0.0.1:8000/images/azxy5.png",
+        self::GD11CHECK5 => "http://127.0.0.1:8000/images/gd11check5.png",
+        self::CUSTOMER_FIRST => "http://127.0.0.1:8000/images/gd11check5.png",
+    ];
     protected $table = 'open_ball';
     protected $primaryKey = 'id';
 
@@ -104,4 +110,174 @@ class OpenBall extends Model
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+
+    public static function isSumBigSmallVal(array $array): string
+    {
+        if (array_sum($array) > 22) {
+            return "大";
+        }
+        return "小";
+    }
+
+    public static function isSumSingleDoubleVal(array $array): string
+    {
+
+        if ((array_sum($array) % 2) != 0) {
+            return "单";
+        }
+        return "双";
+    }
+
+    public static function isSumDragonTigerVal(array $array): string
+    {
+        if ($array[0] > $array[4]) {
+            return "龙";
+        } else if ($array[0] < $array[4]) {
+            return "虎";
+        } else if ($array[0] === $array[4]) {
+            return "和";
+        }
+    }
+
+    public static function beforeThreeVal(array $array): string
+    {
+        /**
+         * 豹子
+         */
+        if (($array[0] === $array[1]) && ($array[1] === $array[2])) {
+            return "豹子";
+        }
+
+
+        /**
+         * 顺子
+         */
+        $is_straight_array = [$array[0], $array[1], $array[2]];
+        sort($is_straight_array);
+        if (($is_straight_array[1] - $is_straight_array[0] === 1) && ($is_straight_array[2] - $is_straight_array[1] === 1)) {
+            return "顺子";
+        }
+        if ((($is_straight_array[0] === 0) && ($is_straight_array[1] === 1) && ($is_straight_array[2] === 9)) ||
+            (($is_straight_array[0] === 0) && ($is_straight_array[1] === 8) && ($is_straight_array[2] === 9)) ||
+            (($is_straight_array[0] === 8) && ($is_straight_array[1] === 9) && ($is_straight_array[2] === 0))) {
+            return "顺子";
+        }
+
+        /**
+         * 对子
+         */
+        if (($array[0] === $array[1]) || ($array[0] === $array[2]) || ($array[1] === $array[2])) {
+            return "对子";
+        }
+
+        /**
+         * 半顺
+         */
+        if (($is_straight_array[1] - $is_straight_array[0] === 1) || ($is_straight_array[2] - $is_straight_array[1] === 1)) {
+            return "半顺";
+        }
+        if (($is_straight_array[0] === 0) && ($is_straight_array[2] === 9)) {
+            return "半顺";
+        }
+
+        /**
+         * 以上都不是就是杂六
+         */
+        return "杂六";
+    }
+
+    public static function middleThreeVal (array $array): string
+    {
+        /**
+         * 豹子
+         */
+        if (($array[1] === $array[2]) && ($array[2] === $array[3])) {
+            return "豹子";
+        }
+
+        /**
+         * 顺子
+         */
+        $is_straight_array = [$array[1], $array[2], $array[3]];
+        sort($is_straight_array);
+        if (($is_straight_array[1] - $is_straight_array[0] === 1) && ($is_straight_array[2] - $is_straight_array[1] === 1)) {
+            return "顺子";
+        }
+        if ((($is_straight_array[0] === 0) && ($is_straight_array[1] === 1) && ($is_straight_array[2] === 9)) ||
+            (($is_straight_array[0] === 0) && ($is_straight_array[1] === 8) && ($is_straight_array[2] === 9)) ||
+            (($is_straight_array[0] === 8) && ($is_straight_array[1] === 9) && ($is_straight_array[2] === 0))) {
+            return "顺子";
+        }
+        /**
+         * 对子
+         */
+        if (($array[1] === $array[2]) || ($array[1] === $array[3]) || ($array[2] === $array[3])) {
+            return "对子";
+        }
+
+        /**
+         * 半顺
+         */
+        if (($is_straight_array[1] - $is_straight_array[0] === 1) || ($is_straight_array[2] - $is_straight_array[1] === 1)) {
+            return "半顺";
+        }
+        if (($is_straight_array[0] === 0) && ($is_straight_array[2] === 9)) {
+            return "半顺";
+        }
+        /**
+         * 以上都不是就是杂六
+         */
+        return "杂六";
+
+    }
+
+
+    public static function afterThreeVal(array $array) : string{
+        /**
+         * 豹子
+         */
+        if (($array[2] === $array[3]) && ($array[3] === $array[4])) {
+            return "豹子";
+        }
+
+        /**
+         * 栓子
+         */
+        $is_straight_array = [$array[2], $array[3], $array[4]];
+        sort($is_straight_array);
+        if (($is_straight_array[1] - $is_straight_array[0] === 1) && ($is_straight_array[2] - $is_straight_array[1] === 1)) {
+            return "顺子";
+        }
+        if ((($is_straight_array[0] === 0) && ($is_straight_array[1] === 1) && ($is_straight_array[2] === 9)) ||
+            (($is_straight_array[0] === 0) && ($is_straight_array[1] === 8) && ($is_straight_array[2] === 9)) ||
+            (($is_straight_array[0] === 8) && ($is_straight_array[1] === 9) && ($is_straight_array[2] === 0))) {
+            return "顺子";
+        }
+        /**
+         * 对子
+         */
+        if (($array[2] === $array[3]) || ($array[2] === $array[4]) || ($array[3] === $array[4])) {
+            return "对子";
+        }
+
+        /**
+         * 半顺
+         */
+        $is_straight_array = [$array[2], $array[3], $array[4]];
+        sort($is_straight_array);
+        if (($is_straight_array[1] - $is_straight_array[0] === 1) || ($is_straight_array[2] - $is_straight_array[1] === 1)) {
+            return "半顺";
+        }
+        if (($is_straight_array[0] === 0) && ($is_straight_array[2] === 9)) {
+            return "半顺";
+        }
+
+        /**
+         * 以上都不是就是杂六
+         */
+        return "杂六";
+
+    }
+
 }

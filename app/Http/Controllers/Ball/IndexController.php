@@ -43,12 +43,18 @@ class IndexController extends Controller
     {
 
         /**
-         *  最后一条记录
+         *  最后一条结束记录
          */
-        $currentBet = OpenBall::query()->where("play_type", OpenBall::CUSTOMER_FIRST)
+        $lastEndBet = OpenBall::query()->where("play_type", OpenBall::CUSTOMER_FIRST)
             ->where("status", OpenBall::STATUS_ENDED)
-            ->orderBy('id',"desc")->get()->first();
-
+            ->orderBy('id', "desc")->get()->first();
+        /**
+         * 最后一条正在进行中记录
+         */
+        $lastBetting = OpenBall::query()->where("play_type", OpenBall::CUSTOMER_FIRST)
+            ->where("status", "!=", OpenBall::STATUS_ENDED)
+            ->orderBy('id', "desc")->get()->first();
+        $customerFirstData = self::customerDataPackage($lastEndBet,$lastBetting);
 
         $azxy5Response = self::request163KKCom(OpenBall::PLAY_TYPE_GAME_IDS[OpenBall::AZXY5]);
         $wlxy5Response = self::request163KKCom(OpenBall::PLAY_TYPE_GAME_IDS[OpenBall::WLXY5]);
@@ -63,12 +69,44 @@ class IndexController extends Controller
                 [
                     $azxy5Data,
                     $wlxy5Data,
-                    $gd11Check5Data
+                    $gd11Check5Data,
+                    $customerFirstData
                 ]
             ]];
 
 
         return response()->json($data);
+    }
+
+
+    private function customerDataPackage(OpenBall $lastEndBet, OpenBall $lastBetting)
+    {
+        $ball = [$lastEndBet->first_ball, $lastEndBet->second_ball, $lastEndBet->third_ball, $lastEndBet->fourth_ball, $lastEndBet->fifth_ball];
+        $data = [
+            "expect" => $lastEndBet->phase_number,
+            "num1Val" => $lastEndBet->first_ball,
+            "num2Val" => $lastEndBet->second_ball,
+            "num3Val" => $lastEndBet->third_ball,
+            "num4Val" => $lastEndBet->fourth_ball,
+            "num5Val" => $lastEndBet->fifth_ball,
+            "isSumBigSmallVal" => OpenBall::isSumBigSmallVal($ball),
+            "isSumSingleDoubleVal" => OpenBall::isSumSingleDoubleVal($ball),
+            "isSumDragonTigerVal" => OpenBall::isSumDragonTigerVal($ball),
+            "beforeThreeVal" => OpenBall::beforeThreeVal($ball),
+            "middleThreeVal" => OpenBall::middleThreeVal($ball),
+            "afterThreeVal" => OpenBall::afterThreeVal($ball),
+            "lotName" => OpenBall::CUSTOMER_FIRST_CN,
+            "paramName" => OpenBall::CUSTOMER_FIRST,
+            "openType" => 1,
+            "nextOpentime" => date('Y-m-d H:i:s', $lastBetting->start_time + $lastBetting->current_open_ball_time),
+//                "nextOpentime" => date('Y-m-d H:i:s', $time + 10),
+            "nextIssue" => $lastBetting->phase_number,
+            "startTime" => date('Y-m-d H:i:s', $lastEndBet->start_time),
+            "totalCount" => OpenBall::SUM_PHASE,
+            "openCount" => $lastEndBet->current_phase,
+            "lotIcon" =>  OpenBall::PLAY_TYPE_ICON_LIST[OpenBall::CUSTOMER_FIRST]
+        ];
+        return $data;
     }
 
 
@@ -105,7 +143,8 @@ class IndexController extends Controller
                 "startTime" => $result['drealopen'],
                 "totalCount" => $result['alreadyOpenedPeriod'] + $result['remainPeriod'],
                 "openCount" => $result['alreadyOpenedPeriod'],
-                "lotIcon" => "https://lottery-20190422.oss-cn-hongkong.aliyuncs.com/lottery_icon/azxy5.png"
+                "lotIcon" =>  OpenBall::PLAY_TYPE_ICON_LIST[$paramName],
+
             ];
 
             Cache::put($paramName, $result["sgameperiod"]);
@@ -197,7 +236,7 @@ class IndexController extends Controller
                     "afterThreeVal" => $openResult['tailThree'], "lotName" => OpenBall::PLAY_TYPE_LIST[$type], "paramName" => $type, "openType" => 1,
                     "nextIssue" => $result['nextGamePeriod'], "nextOpentime" => date('Y-m-d H:i:s', time() + ceil($result['nextOpenTime'] / 1000)),
                     "totalCount" => $result['alreadyOpenedPeriod'] + $result['remainPeriod'], "openCount" => $result['alreadyOpenedPeriod'],
-                    "lotIcon" => "https://lottery-20190422.oss-cn-hongkong.aliyuncs.com/lottery_icon/azxy1.png"
+                    "lotIcon" =>  OpenBall::PLAY_TYPE_ICON_LIST[$type],
                 ]
             ],
                 "pageAction" => null, "token" => null];

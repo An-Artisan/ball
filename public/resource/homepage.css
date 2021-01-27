@@ -9,7 +9,7 @@
 	margin: auto;
 }
 .announcetj li:first-child {
-    background: url(../img/tj.png) no-repeat;
+    background: url(../resource/tj.png) no-repeat;
 }
 .announcetj li {
     float: left;
@@ -195,7 +195,7 @@ a {
     font-size: 18px;
     overflow: hidden;
 	border-radius: 5px;
-	
+
 }
 
 
@@ -276,7 +276,7 @@ a {
     font-size: 18px;
     overflow: hidden;
 	border-radius: 50%;
-	
+
 }
 /* 鏃舵椂褰╃郴鍒� */
 .gusessNum_ssc{
