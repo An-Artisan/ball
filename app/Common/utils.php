@@ -5,7 +5,7 @@
 //  当前球的所有规则计算的亏损
 function money($balls, $rules)
 {
-    $money = 0.00;
+    $money = "0.00";
     foreach ($rules as $func => $value) {
 
         if ($value['bet_price'] == 0) {
@@ -13,9 +13,9 @@ function money($balls, $rules)
         }
         $result = $func($balls);
         if ($result === 1) {
-            $money =  bcsub($money,bcsub($value["bet_odds_price"],$value['bet_price'],2),2) ;
+            $money =  bcsub((string) $money,(string) bcsub((string) $value["bet_odds_price"],(string) $value['bet_price'],2),2) ;
         } else if ($result === 0) {
-            $money = bcadd($value['bet_price'],$money,2);
+            $money = bcadd((string) $value['bet_price'],(string) $money,2);
         }
     }
     return $money;
@@ -950,37 +950,5 @@ function after_three_discrete($array)
     }
     return 1;
 }
-
-//$firsts = range(0, 9);
-//shuffle($firsts);
-//$seconds = range(0, 9);
-//shuffle($seconds);
-//$thirds = range(0, 9);
-//shuffle($thirds);
-//$fourths = range(0, 9);
-//shuffle($fourths);
-//$fifths = range(0, 9);
-//shuffle($fifths);
-//$i = 0;
-//foreach ($firsts as $first) {
-//    foreach ($seconds as $second) {
-//        foreach ($thirds as $third) {
-//            foreach ($fourths as $fourth) {
-//                foreach ($fifths as $fifth) {
-//                    $data[$i]['ball'] = [$first, $second, $third, $fourth, $fifth];
-//                    $data[$i]["money"] = rules($data[$i]['ball']);
-//                    $i++;
-//                }
-//            }
-//        }
-//    }
-//}
-
-////$data = [["ball" => [1,2,3,4,6],"money" => 800],["ball" => [0,0,0,0,0],"money" => 900],["ball" => [2,2,3,4,5],"money" => 900],["ball" => [1,9,3,4,5],"money" => 900],["ball" => [1,9,3,4,9],"money" => 900]];
-//$last_ages = array_column($data, 'money');
-//array_multisort($last_ages, SORT_DESC, $data,SORT_NATURAL);
-//var_dump($data[0]);
-//exit;
-
 
 

@@ -2,13 +2,11 @@
 
 namespace App\Admin\Controllers\Ball;
 
-use App\Admin\Actions\Bet\PrintBet;
 use App\Models\OpenBall;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
-use mysql_xdevapi\Exception;
 
 class OpenBallController extends AdminController
 {
@@ -33,12 +31,11 @@ class OpenBallController extends AdminController
         $grid->column('id', "ID");
         $grid->column('phase_number', "本期期号");
         $grid->column('play_type', "当前彩种");
-        $grid->column('first_ball', "第一球")->editable('select', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-        $grid->column('second_ball', "第二球")->editable('select', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-        $grid->column('third_ball', "第三球")->editable('select', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-        $grid->column('fourth_ball', "第四球")->editable('select', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-        $grid->column('fifth_ball', "第五球")->editable('select', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-        $grid->column('open_method', "开奖方式")->editable('select', [0 => '算法开奖', 1 => '正常开奖', 2 => '人工开奖']);
+        $grid->column('first_ball', "第一球")->editable('select',OpenBall::ALL_BALL);
+        $grid->column('second_ball', "第二球")->editable('select', OpenBall::ALL_BALL);
+        $grid->column('third_ball', "第三球")->editable('select', OpenBall::ALL_BALL);
+        $grid->column('fourth_ball', "第四球")->editable('select',OpenBall::ALL_BALL);
+        $grid->column('open_method', "开奖方式")->editable('select', OpenBall::OPEN_METHOD);
         $grid->column('current_phase',"当前期数");
         $grid->column('current_open_ball_time', "本期开奖周期（单位：秒）");
         $grid->column('current_sealing_time', "本期封盘时间（单位：秒）");
