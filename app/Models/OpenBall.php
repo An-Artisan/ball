@@ -45,7 +45,52 @@ class OpenBall extends Model
     // 已结束
     const STATUS_ENDED = 2;
 
+    // 总期数
     const SUM_PHASE = 240;
+
+
+    /**
+     *  15 广东11选5
+     * 51 文莱幸运5
+     * 31 澳洲幸运5
+     * 68 极速11选5
+     */
+//        https://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=31
+//        https://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=51
+//        https://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=15
+//        https://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=68
+
+    /**
+     * 彩种名称
+     */
+    const WLXY5 = 'wlxy5';
+    const WLXY5_CN = '文莱幸运5';
+    const AZXY5 = 'azxy5';
+    const AZXY5_CN = '澳洲幸运5';
+    const GD11CHECK5 = 'gd11check5';
+    const GD11CHECK5_CN = '广东11选5';
+    const CUSTOMER_FIRST = 'customer';
+    const CUSTOMER_FIRST_CN = '自定义彩种';
+    const REQUEST_RETRY_COUNT = 3;
+    /**
+     * 开奖网接口地址
+     */
+    const OPEN_LUCKY_API = "http://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=";
+    /**
+     * 彩种的ID
+     */
+    const PLAY_TYPE_GAME_IDS = [
+        self::WLXY5 => 51,
+        self::AZXY5 => 31,
+        self::GD11CHECK5 => 15,
+    ];
+    const PLAY_TYPE_LIST = [
+        self::WLXY5 => self::WLXY5_CN,
+        self::AZXY5 => self::AZXY5_CN,
+        self::GD11CHECK5 => self::GD11CHECK5_CN,
+        self::CUSTOMER_FIRST => self::CUSTOMER_FIRST_CN,
+    ];
+
     protected $table = 'open_ball';
     protected $primaryKey = 'id';
 

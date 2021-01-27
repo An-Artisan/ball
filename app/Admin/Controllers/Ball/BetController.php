@@ -27,10 +27,10 @@ class BetController extends AdminController
      */
     protected function grid()
     {
-        $_SESSION['test'] = "Test";
         $grid = new Grid(new UserBet());
 
         $grid->column('id', "ID");
+        $grid->column('play_type', "彩种类型")->using(OpenBall::PLAY_TYPE_LIST);
         $grid->column('phase_number', "下注期数");
         $grid->column('order_number', "下注编号");
         $grid->column('is_open_lottery', "是否开奖")->using([0 => '未开奖', 1 => '已经开奖']);

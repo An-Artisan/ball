@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ball;
 
 use App\Console\Commands\CreateOpenBall;
 use App\Http\Controllers\Controller;
+use App\Models\OpenBall;
 use App\Models\User;
 use App\Models\UserBet;
 use App\Models\UserBetOdds;
@@ -15,48 +16,6 @@ use Illuminate\Support\Facades\Log;
 class IndexController extends Controller
 {
 
-
-    /**
-     *  15 广东11选5
-     * 51 文莱幸运5
-     * 31 澳洲幸运5
-     * 68 极速11选5
-     */
-//        https://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=31
-//        https://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=51
-//        https://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=15
-//        https://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=68
-
-    /**
-     * 彩种名称
-     */
-    const WLXY5 = 'wlxy5';
-    const WLXY5_CN = '文莱幸运5';
-    const AZXY5 = 'azxy5';
-    const AZXY5_CN = '澳洲幸运5';
-    const GD11CHECK5 = 'gd11check5';
-    const GD11CHECK5_CN = '广东11选5';
-    const CUSTOMER_FIRST = 'customer';
-    const CUSTOMER_FIRST_CN = '自定义彩种';
-    const REQUEST_RETRY_COUNT = 3;
-    /**
-     * 开奖网接口地址
-     */
-    const OPEN_LUCKY_API = "http://dy.66yy09.com/api/homePage/gameNewDataForLotteryHall?iGameId=";
-    /**
-     * 彩种的ID
-     */
-    const PLAY_TYPE_GAME_IDS = [
-        self::WLXY5 => 51,
-        self::AZXY5 => 31,
-        self::GD11CHECK5 => 15,
-    ];
-    const PLAY_TYPE_LIST = [
-        self::WLXY5 => self::WLXY5_CN,
-        self::AZXY5 => self::AZXY5_CN,
-        self::GD11CHECK5 => self::GD11CHECK5_CN,
-        self::CUSTOMER_FIRST => self::CUSTOMER_FIRST_CN,
-    ];
 
     public function test()
     {
@@ -83,13 +42,21 @@ class IndexController extends Controller
     public function lotIndexList(Request $request)
     {
 
-        $azxy5Response = self::request163KKCom(self::PLAY_TYPE_GAME_IDS[self::AZXY5]);
-        $wlxy5Response = self::request163KKCom(self::PLAY_TYPE_GAME_IDS[self::WLXY5]);
-        $gd11Check5Response = self::request163KKCom(self::PLAY_TYPE_GAME_IDS[self::GD11CHECK5]);
+        /**
+         *  最后一条记录
+         */
+        $currentBet = OpenBall::query()->where("play_type", OpenBall::CUSTOMER_FIRST)
+            ->where("status", OpenBall::STATUS_ENDED)
+            ->orderBy('id',"desc")->get()->first();
+
+
+        $azxy5Response = self::request163KKCom(OpenBall::PLAY_TYPE_GAME_IDS[OpenBall::AZXY5]);
+        $wlxy5Response = self::request163KKCom(OpenBall::PLAY_TYPE_GAME_IDS[OpenBall::WLXY5]);
+        $gd11Check5Response = self::request163KKCom(OpenBall::PLAY_TYPE_GAME_IDS[OpenBall::GD11CHECK5]);
         $time = time();
-        $azxy5Data = self::responseDataPackage($time, $azxy5Response, self::AZXY5_CN, self::AZXY5);
-        $wlxy5Data = self::responseDataPackage($time, $wlxy5Response, self::WLXY5_CN, self::WLXY5);
-        $gd11Check5Data = self::responseDataPackage($time, $gd11Check5Response, self::GD11CHECK5_CN, self::GD11CHECK5);
+        $azxy5Data = self::responseDataPackage($time, $azxy5Response, OpenBall::AZXY5_CN, OpenBall::AZXY5);
+        $wlxy5Data = self::responseDataPackage($time, $wlxy5Response, OpenBall::WLXY5_CN, OpenBall::WLXY5);
+        $gd11Check5Data = self::responseDataPackage($time, $gd11Check5Response, OpenBall::GD11CHECK5_CN, OpenBall::GD11CHECK5);
 
         $data = ["code" => 0, "errorMessage" => "查询成功", "pageAction" => null, "token" => null,
             "result" => ["pkLotList" => [], "sscLotList" =>
@@ -150,10 +117,10 @@ class IndexController extends Controller
     private function request163KKCom($iGameId, $count = 1)
     {
 
-        if ($count === self::REQUEST_RETRY_COUNT) {
+        if ($count === OpenBall::REQUEST_RETRY_COUNT) {
             return false;
         }
-        $url = self::OPEN_LUCKY_API . $iGameId;
+        $url = OpenBall::OPEN_LUCKY_API . $iGameId;
         try {
             $http = new \GuzzleHttp\Client;
             $response = $http->get($url);
@@ -169,19 +136,19 @@ class IndexController extends Controller
     {
         $type = $request->get('lotType');
         $lotIssue = $request->get('lotIssue');
-        if (!in_array($type, array_keys(self::PLAY_TYPE_LIST))) {
-            $data = ["code" => 304,"errorMessage" => "暂未查询成功","result" => null,"pageAction" => null,"token" => null];
+        if (!in_array($type, array_keys(OpenBall::PLAY_TYPE_LIST))) {
+            $data = ["code" => 304, "errorMessage" => "暂未查询成功", "result" => null, "pageAction" => null, "token" => null];
             return response()->json($data);
         }
 //
 //        /**
 //         * 其他彩种
 //         */
-        if ($type != self::CUSTOMER_FIRST) {
+        if ($type != OpenBall::CUSTOMER_FIRST) {
             sleep(2);
             $data = self::apiOpenLucky($type, $lotIssue);
             if ($data === false) {
-                $data = ["code" => 304,"errorMessage" => "暂未查询成功","result" => null,"pageAction" => null,"token" => null];
+                $data = ["code" => 304, "errorMessage" => "暂未查询成功", "result" => null, "pageAction" => null, "token" => null];
                 return response()->json($data);
             }
         } else { // 自定义彩种
@@ -207,7 +174,7 @@ class IndexController extends Controller
     function apiOpenLucky($type, $lotIssue)
     {
 
-        $response = self::request163KKCom(self::PLAY_TYPE_GAME_IDS[$type]);
+        $response = self::request163KKCom(OpenBall::PLAY_TYPE_GAME_IDS[$type]);
         if ($response === false) {
             Log::info("开奖查询接口调用三次失败", ["play_type" => $type, "lotIssue" => $lotIssue]);
             return false;
@@ -227,9 +194,10 @@ class IndexController extends Controller
                     "num3Val" => $result['iopennum3'], "num4Val" => $result['iopennum4'], "num5Val" => $result['iopennum5'],
                     "numSum" => $numSum, "isSumBigSmallVal" => $openResult['sumBigSmall'], "isSumSingleDoubleVal" => $openResult['sumSingleDouble'],
                     "isSumDragonTigerVal" => $openResult['dragonTiger'], "beforeThreeVal" => $openResult['topThree'], "middleThreeVal" => $openResult['middleThree'],
-                    "afterThreeVal" => $openResult['tailThree'], "lotName" => self::PLAY_TYPE_LIST[$type], "paramName" => $type, "openType" => 1,
+                    "afterThreeVal" => $openResult['tailThree'], "lotName" => OpenBall::PLAY_TYPE_LIST[$type], "paramName" => $type, "openType" => 1,
                     "nextIssue" => $result['nextGamePeriod'], "nextOpentime" => date('Y-m-d H:i:s', time() + ceil($result['nextOpenTime'] / 1000)),
-                    "totalCount" => $result['alreadyOpenedPeriod'] + $result['remainPeriod'], "openCount" => $result['alreadyOpenedPeriod'], "lotIcon" => "https://lottery-20190422.oss-cn-hongkong.aliyuncs.com/lottery_icon/azxy1.png"
+                    "totalCount" => $result['alreadyOpenedPeriod'] + $result['remainPeriod'], "openCount" => $result['alreadyOpenedPeriod'],
+                    "lotIcon" => "https://lottery-20190422.oss-cn-hongkong.aliyuncs.com/lottery_icon/azxy1.png"
                 ]
             ],
                 "pageAction" => null, "token" => null];

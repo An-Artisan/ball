@@ -59,10 +59,10 @@ class CreateOpenBall extends Command
              */
             if (OpenBall::query()->where("status", "!=", OpenBall::STATUS_ENDED)->count() == 0) {
                 $lastBet = OpenBall::query()->orderBy("id", "desc")->get()->first();
-                $data = ["play_type" => "new1", "first_ball" => 0, "second_ball" => 0, "third_ball" => 0, "fourth_ball" => 0, "fifth_ball" => 0,
+                $data = ["play_type" => OpenBall::CUSTOMER_FIRST, "first_ball" => 0, "second_ball" => 0, "third_ball" => 0, "fourth_ball" => 0, "fifth_ball" => 0,
                     "open_method" => 0, "current_open_ball_time" => OpenBall::CURRENT_OPEN_BALL_TIME, "next_open_ball_time" => OpenBall::NEXT_OPEN_BALL_TIME,
-                    "current_sealing_time" => OpenBall::CURRENT_SEALING_TIME, "next_sealing_time" => OpenBall::NEXT_SEALING_TIME,"status" => OpenBall::STATUS_BETTING,
-                    "start_time" => time(),  "win_or_lose" => 0.00,"created_at" => Carbon::now(),"updated_at" => Carbon::now()];
+                    "current_sealing_time" => OpenBall::CURRENT_SEALING_TIME, "next_sealing_time" => OpenBall::NEXT_SEALING_TIME, "status" => OpenBall::STATUS_BETTING,
+                    "start_time" => time(), "win_or_lose" => 0.00, "created_at" => Carbon::now(), "updated_at" => Carbon::now()];
                 /**
                  * 数据库没有数据
                  */
@@ -71,15 +71,15 @@ class CreateOpenBall extends Command
                     $data['current_phase'] = 1;
 
                 } else {
-                    $data['phase_number'] = (int) $lastBet->phase_number + 1;
-                    $data['current_phase'] = (int) $lastBet->current_phase + 1;
+                    $data['phase_number'] = (int)$lastBet->phase_number + 1;
+                    $data['current_phase'] = (int)$lastBet->current_phase + 1;
                 }
                 $result = OpenBall::query()->insert($data);
                 if (!$result) {
                     throw new \Exception("首期任务创建失败");
                 }
             }
-            $currentBet = OpenBall::query()->where("play_type", "new1")->where("status", "!=", OpenBall::STATUS_ENDED)->get()->first();
+            $currentBet = OpenBall::query()->where("play_type", OpenBall::CUSTOMER_FIRST)->where("status", "!=", OpenBall::STATUS_ENDED)->get()->first();
 
             /**
              * 封盘
@@ -99,9 +99,9 @@ class CreateOpenBall extends Command
                 $currentBet->save();
                 $currentBet->refresh();
 
-                $userBetAll = UserBet::query()->where("play_type", "new1")->where("phase_number", $currentBet->phase_number)
+                $userBetAll = UserBet::query()->where("play_type", OpenBall::CUSTOMER_FIRST)->where("phase_number", $currentBet->phase_number)
                     ->where("is_open_lottery", UserBet::NOT_OPEN)->get();
-                $userBetOdds = UserBetOdds::query()->where("play_type", "new1")->first();
+                $userBetOdds = UserBetOdds::query()->where("play_type", OpenBall::CUSTOMER_FIRST)->first();
                 /**
                  * 寻找最优球
                  */
@@ -137,10 +137,10 @@ class CreateOpenBall extends Command
         foreach ($userBetAllObject as $item) {
             $itemArray = $item->toArray();
             foreach ($itemArray as $key => $value) {
-                $sumBetPrice = bcmul((string) $sumBetPrice, (string) $value, 2);
+                $sumBetPrice = bcmul((string)$sumBetPrice, (string)$value, 2);
                 if (array_key_exists($key, $userBetOdds)) {
                     $rules[$key]["bet_price"] = $value;
-                    $rules[$key]["bet_odds_price"] = bcmul((string) $value, (string) $userBetOdds[$key], 2);
+                    $rules[$key]["bet_odds_price"] = bcmul((string)$value, (string)$userBetOdds[$key], 2);
                 }
             }
             // 当前盈亏
@@ -163,10 +163,10 @@ class CreateOpenBall extends Command
         if ($current_phase > OpenBall::SUM_PHASE) {
             $current_phase = 1;
         }
-        $data = ["play_type" => "new1", "phase_number" => $currentBet->phase_number + 1, "first_ball" => 0, "second_ball" => 0, "third_ball" => 0,
+        $data = ["play_type" => OpenBall::CUSTOMER_FIRST, "phase_number" => $currentBet->phase_number + 1, "first_ball" => 0, "second_ball" => 0, "third_ball" => 0,
             "fourth_ball" => 0, "fifth_ball" => 0, "open_method" => 0, "current_open_ball_time" => $currentBet->next_open_ball_time,
             "next_open_ball_time" => OpenBall::NEXT_OPEN_BALL_TIME, "current_sealing_time" => $currentBet->next_sealing_time, "next_sealing_time" => OpenBall::NEXT_SEALING_TIME,
-            "status" => OpenBall::STATUS_BETTING, "start_time" => time(), "current_phase" => $current_phase, "win_or_lose" => 0.00,"created_at" => Carbon::now(),"updated_at" => Carbon::now()];
+            "status" => OpenBall::STATUS_BETTING, "start_time" => time(), "current_phase" => $current_phase, "win_or_lose" => 0.00, "created_at" => Carbon::now(), "updated_at" => Carbon::now()];
         $result = OpenBall::query()->insert($data);
         if (!$result) {
             throw new \Exception("下期期任务创建失败");
@@ -227,8 +227,8 @@ class CreateOpenBall extends Command
             foreach ($item as $key => $value) {
                 if (array_key_exists($key, $userBetOdds)) {
                     $test = bcadd($test, $value, 2);
-                    $rules[$key]["bet_price"] = bcadd((string) $rules[$key]["bet_price"], (string) $value, 2);
-                    $rules[$key]["bet_odds_price"] = bcadd((string) $rules[$key]["bet_odds_price"], (string) bcmul((string) $value, (string) $userBetOdds[$key], 2), 2);
+                    $rules[$key]["bet_price"] = bcadd((string)$rules[$key]["bet_price"], (string)$value, 2);
+                    $rules[$key]["bet_odds_price"] = bcadd((string)$rules[$key]["bet_odds_price"], (string)bcmul((string)$value, (string)$userBetOdds[$key], 2), 2);
                 }
             }
         }

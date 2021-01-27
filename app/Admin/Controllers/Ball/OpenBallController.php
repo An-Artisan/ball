@@ -25,10 +25,9 @@ class OpenBallController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new OpenBall());
+        $grid->column('id', "ID");
         $grid->column('end_countdown',"结束倒计时")->view('admin.end_countdown');
         $grid->column('sealing_countdown',"封盘倒计时")->view('admin.sealing_countdown');
-
-        $grid->column('id', "ID");
         $grid->column('phase_number', "本期期号");
         $grid->column('current_phase',"当前期数");
         $grid->column('play_type', "当前彩种");
@@ -40,7 +39,7 @@ class OpenBallController extends AdminController
         $grid->column('fourth_ball', "第四球")->editable('select',OpenBall::ALL_BALL);
         $grid->column('fifth_ball', "第五球")->editable('select',OpenBall::ALL_BALL);
         $grid->column('open_method', "开奖方式")->editable('select', OpenBall::OPEN_METHOD);
-        $grid->column('current_open_ball_time', "本期开奖周期（单位：秒）");
+        $grid->column('current_open_ball_time', "本期开奖时间（单位：秒）");
         $grid->column('current_sealing_time', "本期封盘时间（单位：秒）");
         $grid->column('next_open_ball_time', "下期开奖周期（单位：秒）")->editable();
         $grid->column('next_sealing_time', "下期封盘时间（单位：秒）")->editable();
